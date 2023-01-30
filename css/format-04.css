@@ -1,0 +1,217 @@
+/* FORMATO NUMEOR 4 PARTE DELANTERA */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Adlam+Unjoined&display=swap");
+/* FONT FOR THE PART IC LETRAS */
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDGothic&display=swap");
+
+/* FUENTE PARA LOS NUMEROS IC */
+@import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
+
+.f04-cedula {
+  position: absolute;
+  top: 145px;
+  left: 160px;
+  font-size: 18px;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+.f04-n1 {
+  position: absolute;
+  top: 182px;
+  left: 118px;
+  font-size: 10.73px;
+}
+
+.f04-a1 {
+  position: absolute;
+  top: 210px;
+  left: 118px;
+  font-size: 10.73px;
+}
+
+.f04-fecha_nacimiento {
+  position: absolute;
+  top: 239px;
+  left: 118px;
+  font-size: 10.73px;
+}
+
+.f04-lugar_nacimiento {
+  position: absolute;
+  top: 239px;
+  left: 202px;
+  font-size: 10.73px;
+}
+
+.f04-sexo {
+  position: absolute;
+  top: 266px;
+  left: 119px;
+  font-size: 10.73px;
+}
+
+.f04-emision {
+  position: absolute;
+  top: 309px;
+  left: 139px;
+  font-size: 11.5px;
+}
+
+.f04-expiracion {
+  position: absolute;
+  top: 309px;
+  left: 237px;
+  font-size: 11.5px;
+}
+
+/* PARTE TRASERA NUMERO 4 */
+
+.f04-direccion1 {
+  position: absolute;
+  top: 397px;
+  left: 165px;
+  font-size: 12.26px;
+}
+
+.f04-direccion2 {
+  position: absolute;
+  top: 410px;
+  left: 165px;
+  font-size: 12.26px;
+}
+
+.f04-direccion3 {
+  position: absolute;
+  top: 424px;
+  left: 165px;
+  font-size: 12.26px;
+}
+
+.f04-municipio {
+  position: absolute;
+  top: 450px;
+  left: 165px;
+  font-size: 12.26px;
+}
+
+.f04-departamento {
+  position: absolute;
+  top: 478px;
+  left: 165px;
+  font-size: 12.26px;
+}
+
+.f04-reposicion {
+  position: absolute;
+  top: 494px;
+  left: 193px;
+  font-size: 12.26px;
+}
+
+/* PARTE DE INFORMACION CONSOLIDADA */
+
+.f04 {
+   /* background: white; */
+  font-size: 13px;
+  width: 11.5px;
+  text-align: center;
+  font-family: "BIZ UDGothic", sans-serif;
+}
+
+.f04-number{
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  margin-top: -2.3px;
+}
+
+.ic{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .f04-ic1 {
+  position: absolute;
+  bottom: 138px;
+  left: 45px;
+}
+
+.f04-ic2 {
+  position: absolute;
+  bottom: 120px;
+  left: 45px;
+}
+
+.f04-ic3 {
+  position: absolute;
+  bottom: 96px;
+  left: 45px;
+} */
+
+#container-ic {
+  position: absolute;
+  bottom: 95px;
+  left: 39px;
+
+  display: flex;
+  flex-direction: column;
+
+  height: 60px;
+  width: 345px;
+  /* border: 2px solid black; */
+}
+
+/* .color{
+  background: white;
+  font-size: 13px;
+  width: 11.5px;
+  text-align: center;
+  font-family: "BIZ UDGothic", sans-serif;
+} */
+
+.ic1{
+  /* background-color: red; */
+  height: 33.33px;
+  width: 100%;
+  font-weight: 700;
+}
+
+.ic2{
+  /* background-color: blue; */
+  height: 33.33px;
+  width: 100%;
+  font-weight: 700;
+}
+
+.ic3{
+  /* background-color: green; */
+  height: 33.33px;
+  width: 100%;
+  font-weight: 700;
+}
+
+/* STYELES FOR IMAGES */
+
+#container-img-person {
+  position: absolute;
+  height: 105px;
+  width: 80px;
+  /* border: 3px solid red; */
+  top: 179.5px;
+  left: 26px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#container-img-signature {
+  position: absolute;
+  height: 50px;
+  width: 150px;
+  /* border: 2px solid red; */
+  top: 258px;
+  left: 145px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -1,0 +1,26 @@
+@import url(css/format-01.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL PRIMER FORMATO*/
+@import url(css/format-02.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL SEGUNDO FORMATO*/
+@import url(css/format-03.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL TERCER FORMATO*/
+@import url(css/format-04.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL CUARTO FORMATO*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.ced {
+  /* font-size: 10.73px; */
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+}
+#format {
+  position: relative;
+  height: 700px;
+  /* width: 414px; ANCHO PARA EL FORMATO 04 */
+  width: 450px; /*ANCHO PARA EL FORMATO 02*/
+  background-image: url("img/f2.jpeg");
+  background-repeat: no-repeat;
+  background-color: red;
+  background-position: center;
+  background-size: center;
+}

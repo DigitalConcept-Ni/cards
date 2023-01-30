@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="es-NI">
+
+<head>
+    <!-- Required meta tags -->`
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <!-- Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js">
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>CEDULAS | Digital Concept</title>
+
+    <!-- GENERAL FUNCTIONS -->
+    <script src="main.js"></script>
+
+    <!-- GENERAL STYLES -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- SWEET ALERT 2 LIBRARY -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body onload="autoClick();">
+
+    <a class="btn btn-success" id="cli">Click me</a>
+
+    <!-- CONTENEDOR DEL FORUMLARIO DE DATOS -->
+    <div class="container">
+        <div class="card bg-navy">
+
+            <div class="card-header">
+                <h3 class="card-title">Informacion de la cedula</h3>
+            </div>
+
+            <div class="card-body">
+
+                <!-- CUARTA FILA CHEBOX DE SELECCION DE FORMATOS -->
+
+                <div class="row">
+
+                    <div class="form-group">
+                        <label for="f01">Formato 1</label>
+                        <input id="f01" data-image="0" type="checkbox">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f02">Formato 2</label>
+                        <input id="f02" data-image="1" type="checkbox">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f03">Formato 3</label>
+                        <input id="f03" data-image="2" type="checkbox">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f04">Formato 4</label>
+                        <input id="f04" data-image="3" type="checkbox">
+                    </div>
+
+                </div>
+
+                <!-- PRIMERA FILA // CARA DELANTERA -->
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="cedula">Cedula: </label>
+                            <input id="cedula" type="text" class="form-control" maxlength="16">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="n1">Primer Nombre: </label>
+                            <input id="n1" class="form-control" type="text" name="primerNombre">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="n2">Segundo Nombre: </label>
+                            <input id="n2" class="form-control" type="text" name="primerNombre">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="a1">Primer apellido: </label>
+                            <input id="a1" class="form-control" type="text" name="primerNombre">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="a2">Segundo apellido: </label>
+                            <input id="a2" class="form-control" type="text" name="primerNombre">
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <!-- SEGUNDA FILA // CARA DELANTERA -->
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="fecha_nacimiento">Fecha Nacimiento</label>
+                            <input id="fecha_nacimiento" type="date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="lugar_nacimiento">Lugar de Nacimiento: </label>
+                            <input id="lugar_nacimiento" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="">Sexo: </label>
+                            <select name="sexo" id="sexo" class="form-select">
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="emision">Emicion: </label>
+                            <input id="emision" type="date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="expiracion">Expiracion: </label>
+                            <input id="expiracion" type="date" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <!-- TERCERA FILA // CARA TRACERA -->
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="direccion">Direccion P1: </label>
+                            <input id="direccion1" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="direccion">Direccion P2: </label>
+                            <input id="direccion2" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="direccion">Direccion P3: </label>
+                            <input id="direccion3" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="municipio">Municipio: </label>
+                            <input id="municipio" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="departamento">Departamento: </label>
+                            <input id="departamento" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="reposicion">Reposicion: </label>
+                            <input id="reposicion" type="text" class="form-control">
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <hr>
+
+                <!-- QUINTA FILA // SELECCION DE FOTO Y DE FIRMA -->
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="img-person">Imagen de la persona: </label>
+                        <input type="file" name="img-person" id="imgPerson">
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group">
+                        <label for="img-signature">Imagen de la firma: </label>
+                        <input type="file" name="img-signature" id="imgSignature">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <a id="visualize" class="btn btn-success">Visualizar</a>
+                <a id="download" class="btn btn-warning">Generar</a>
+            </div>
+        </div>
+        <!-- /.card-footer-->
+    </div>
+
+    <!-- TERMINA CONTENEDOR DEL FORUMLARIO DE DATOS -->
+
+    <!-- AQUI SE COLOCARAN LOS SPAN CON LA INFORMACION INGRESADA
+    EN EL FORMULARIO -->
+    <div id="format">
+
+        <!-- PARTE DELANTERA -->
+        <!-- <img id="img-person" class="" style="width: 95%;" alt="imgage-cedulas">
+        <img id="img-signature" style="width: 95%;" alt="imgage-cedulas"> -->
+
+        <img id="ccontainer-img-person" class="img-person-02"></img>
+        <img id="ccontainer-img-signature" class="img-signature-02"></img>
+
+        <!-- <span class="f02-cedula">001-060897-0034S</span>
+        <span class="f02-n1 ced">BRYAN</span>
+        <span class="f02-n2 ced">ANTONIO</span>
+        <span class="f02-a1 ced">URBINA</span>
+        <span class="f02-a2 ced">GUEVARA</span>
+        <span class="f02-fecha_nacimiento ced">06-08-1997</span>
+        <span class="f02-lugar_nacimiento ced">MANAGUA</span>
+        <span class="f02-sexo ced">M</span>
+        <span class="f02-emision ced">10-10-2018</span>
+        <span class="f02-expiracion ced">10-10-2028</span> -->
+
+        <!-- PARTE TRACERA  -->
+        <!-- <span class="f02-direccion1 ced">VI. SAN JACINTO</span>
+        <span class="f02-direccion2 ced">COSTADO SUROESTE COLEGIO PADRE</span>
+        <span class="f02-direccion3 ced">BRUNIO MARTINEZ CASA N C7-67</span>
+        <span class="f02-municipio ced">MANAGUA</span>
+        <span class="f02-departamento ced">MANAGUA</span>
+        <span class="f02-reposicion ced">01</span> -->
+
+        <!-- PARTE DE INFORMACION GENERAL // CONSOLIDADA -->
+        <div id="ccontainer-ic" class="container-icf3">
+            <div id="ic1" class="ic1 ic"></div>
+            <div id="ic2" class="ic2 ic"></div>
+            <div id="ic3" class="ic3 ic"></div>
+        </div>
+        <!-- <span class="f04-ic1 f04">IDNIC&lt;0010034S8&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+        <span class="f04-ic2 f04">9708066M2811279NIC&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;8</span>
+        <span class="f04-ic3 f04">URBINA&lt;GUEVARA&lt;&lt;BRYAN&lt;ANTONIO&lt;</span> -->
+
+
+    </div>
+
+    <!-- MODAL -->
+    <div id="myModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pre-visualizacion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="img-ced" style="width: 95%;" alt="imgage-cedulas">
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+
+    <script>
+        function autoClick() {
+            $("#download").click();
+        }
+
+        $(document).ready(function () {
+            var element = $("#format");
+
+            $("#download").on('click', function () {
+                html2canvas(element, {
+                    allowTaint: true,
+                    onrendered: function (canvas) {
+                        var imageData = canvas.toDataURL("image/jpeg",'1.0');
+                        var newData = imageData.replace(/^data:image\/jpg/,
+                            "data:application/octet-stream");   
+                        $("#download").attr("download", "image.jpg").attr("href", newData);
+                    }
+                });
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>
