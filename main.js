@@ -30,89 +30,27 @@ $(function () {
     }
 
     // Funcion para hacer el consilado final parte tracera con los caracteres
-
-    // FUNCION DE AYUDA PARA LOS SIGNOS '<' para los ic3
-
-    const signals = (cadena) => {
-        var cadenaFinal = '';
-        for (let f = 0; f <= 29; f++) {
-            var caracter = cadena.charAt(f);
-            if (caracter === '<') {
-                cadenaFinal += '&lt;';
-                continue
-            }
-            cadenaFinal += caracter;
-        }
-        return cadenaFinal;
-    }
-    const consolidated = () => {
+    const consolidated = (checkId, formato) => {
         let s11 = '<<<<<<<<<<<'; // 11 unidades
         let s15 = '<<<<<<<<<<<<<<<'; // 15 unidades
-        let check = $('input[type="checkbox"]');
-        var checkId;
         let sp = '';
 
-        $.each(check, v => {
-            if ($(check[v]).is(':checked')) {
-                checkId = check[v].id;
-            }
-        });
-
-
+        //Espacio para el IC1
         let ced = $('#cedula').val();
-        let cedId = '';
-        let date = '';
-        for (let i = 0; i < ced.length; i++) {
-            if (i >= 3 && i <= 10) {
-                if (ced[i] === '-') {
-                    continue;
-                } else {
-                    date += ced[i];
-                }
-            } else {
-                cedId += ced[i];
-            }
-        }
+        let cedId = ced.split('-');
 
-        let ic1 = 'IDNIC' + '<' + cedId + '8' + s15;
-        console.log(ic1)
-        console.log(date)
+        let ic1 = 'IDNIC' + '<' + cedId[0] + cedId[2] + '8' + s15;
 
-        let a = '';
-        let b = '';
-        let c = '';
-
+        // Espacio para el IC2
         let sex = $('#sexo').val();
-
-        // bloque para separar el anio de expiracion
-        for (let j = 0; j < date.length; j++) {
-            if (j <= 1) {
-                a += date[j];
-            } else if (j >= 2 && j <= 3) {
-                b += date[j];
-            } else if (j >= 4 && j <= 5) {
-                c += date[j];
-            }
-        }
-
-        let d = '';
-        let e = '';
-        let f = '';
+        let birthday = $('#expiracion').val();
         let expiration = $('#expiracion').val();
+        let arrBirthday = birthday.split('-'); //arrBirthdayday
+        let arrExp = expiration.split('-'); //Expiraion
+        let yearBirthday = arrBirthday[2].split('');
+        let yearExp = arrExp[2].split('');
 
-        // bloque para separar la fecha de expiracion
-
-        for (let x = 0; x < expiration.length; x++) {
-            if (x === 2 || x === 3) {
-                d += expiration[x];
-            } else if (x >= 5 && x <= 6) {
-                e += expiration[x];
-            } else if (x >= 8 && x <= 9) {
-                f += expiration[x];
-            }
-        }
-
-        let ic2 = c + b + a + '6' + sex + d + e + f + '9NIC' + s11 + '8';
+        let ic2 = yearBirthday[2][3] + arrBirthday[2] + arrBirthday[1] + '6' + sex + yearExp[2][3] + arrExp[2] + arrExp[1] + '9NIC' + s11 + '8';
 
         // ESPACIO PARA REALIZA EL IC3
 
@@ -121,14 +59,7 @@ $(function () {
         let a1 = $('#a1').val();
         let a2 = $('#a2').val();
         let ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<';
-
-        // VALIDACION DE LA CANTDAD DE CARACTERES DEL NOMBRE COMPLETO Y CARACTERES ESPECIALES
-        // let ic3 = signals(ntotal);
         let ic3 = ntotal;
-
-        // bloque para poner los span con el consolidado final parte tracera
-
-        // let sp = '';
         let s = [ic1, ic2, ic3];
         let m = ['ic1', 'ic2', 'ic3'];
 
@@ -170,7 +101,7 @@ $(function () {
         })
 
         container.append(sp);
-        // consolidated(checkId)
+        consolidated(checkId, formato)
     }
 
     // parte en donde hacemos la descarga
@@ -244,31 +175,6 @@ $(function () {
         }
     }
 
-    const pilot = () => {
-        let n1 = $('#n1').val();
-        let n2 = $('#n2').val();
-        let a1 = $('#a1').val();
-        let a2 = $('#a2').val();
-        let ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<';
-        let sp = '';
-        // son cuatro signos los importantes, al final solo son de relleno
-
-        // VALIDACION DE LA CANTDAD DE CARACTERES DEL NOMBRE COMPLETO Y CARACTERES ESPECIALES
-        let s = signals(ntotal);
-        sp += `<span class="f04-ic2 f04">${s}</span>`;
-        container.append(sp)
-
-    }
-
-    $('#visualize').on('click', function () {
-        validateCheckbox();
-        // recollect();
-        // consolidated();
-        // urlsImages();
-        // pilot();
-
-    })
-
     //Genera las previsualizaciones de las imagenes de la persona y la firma, donde se encuentra la imagen de la cedula
     function createPreview(person, signature) {
         let imgPerson = $('#container-img-person')
@@ -281,21 +187,25 @@ $(function () {
     }
 
     // Funcion para mostrar en el modal la vista previa del formato seleccionado o a hacer
+    /*$('input[type="checkbox"]').on('change', function (e) {
 
-    // $('input[type="checkbox"]').on('change', function (e) {
+        if ($(this).is(':checked')) {
+            let position = $(this).attr('data-image');
+            let containerImg = $('#img-ced')
+            containerImg.attr('src', img[position])
+            $('#myModal').modal('show');
 
-    //     if ($(this).is(':checked')) {
-    //         let position = $(this).attr('data-image');
-    //         let containerImg = $('#img-ced')
-    //         containerImg.attr('src', img[position])
-    //         $('#myModal').modal('show');
+        } else {
+            // Hacer algo si el checkbox ha sido deseleccionado
+            console.log("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+        }
+    });*/
 
-    //     } else {
-    //         // Hacer algo si el checkbox ha sido deseleccionado
-    //         console.log("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
-    //     }
-    // });
-
+    
+    // BTN PARA VISUALIZAR LA INFORMACION INSERTADA
+    $('#visualize').on('click', function () {
+        validateCheckbox();
+    })
     $('#cli').on('click', function () {
         console.log(validateCheckbox());
     })

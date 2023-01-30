@@ -156,16 +156,11 @@
   left: 45px;
 } */
 
-.container-icf3 {
-  position: absolute;
-  bottom: 90px;
+.container-ic-f03 { 
+  bottom: 95px;
   left: 39px;
-
-  display: flex;
-  flex-direction: column;
-
   height: 60px;
-  width: 380px;
+  width: 345px;
   border: 2px solid black;
 }
 

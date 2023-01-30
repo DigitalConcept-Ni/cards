@@ -24,3 +24,12 @@
   background-position: center;
   background-size: center;
 }
+
+/* ESTILOS DEL CONTENEDOR DE INFORMACION CONSOLIDADA */
+
+#container-ic  {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid black; */
+}
