@@ -18,8 +18,21 @@ let info = {
 }
 
 $(function () {
-    let img = ['img/f1.jpeg', 'img/f2.jpeg', 'img/f3.jpeg', 'img/f4.jpeg']
+    let img = ['img/f1.jpeg', 'img/f2.jpeg', 'img/f3.jpeg', 'img/f4.jpg']
     let container = $('#format') // Selector del contenedor donde se pondra la informacion
+
+    $("#download").on('click', function () {
+        html2canvas(container, {
+            allowTaint: true,
+            onrendered: function (canvas) {
+                var imageData = canvas.toDataURL("image/jpeg", '1.0');
+                var newData = imageData.replace(/^data:image\/jpg/,
+                    "data:application/octet-stream");
+                $("#download").attr("download", "image.jpg").attr("href", newData);
+            }
+        });
+
+    });
 
     const alert = (title, message) => {
         Swal.fire({
@@ -29,90 +42,62 @@ $(function () {
         })
     }
 
-    // Funcion para hacer el consilado final parte tracera con los caracteres
 
-    // FUNCION DE AYUDA PARA LOS SIGNOS '<' para los ic3
+    //Genera las previsualizaciones de las imagenes de la persona y la firma, donde se encuentra la imagen de la cedula
+    const createPreview = (person, signature, formato) => {
+        let imgPerson = $('#container-img-person');
+        let imgSignature = $('#container-img-signature');
 
-    const signals = (cadena) => {
-        var cadenaFinal = '';
-        for (let f = 0; f <= 29; f++) {
-            var caracter = cadena.charAt(f);
-            if (caracter === '<') {
-                cadenaFinal += '&lt;';
-                continue
-            }
-            cadenaFinal += caracter;
-        }
-        return cadenaFinal;
+        imgPerson.attr('src', `${person}`).addClass(`${'img-person-'+formato}`);
+        imgSignature.attr('src', `${signature}`).addClass(`${'img-signature-'+formato}`)
+        // imgSignature.css('backgroundImage', `url(${signature})`)
     }
-    const consolidated = () => {
+
+    // Function for codifier the images to push into container 'format'
+    const urlsImages = (formato) => {
+        let person = $('#imgPerson')[0].files;
+        let signature = $('#imgSignature')[0].files;
+
+        if (person.length === 0 && signature.length === 0) {
+            alert('Error de seleccion', 'Seleccione las imagenes correspondientes')
+        } else if (person.length === 0 && signature.length === 1) {
+            alert('Error de seleccion', 'Seleccione la imagen de la persona')
+        } else if (person.length === 1 && signature.length === 0) {
+            alert('Error de seleccion', 'Seleccione la imagen de la firma')
+        } else {
+            let urlPerson = URL.createObjectURL(person[0])
+            let urlSignature = URL.createObjectURL(signature[0])
+            createPreview(urlPerson, urlSignature, formato);
+        }
+    }
+
+    // Funcion para hacer el consilado final parte tracera con los caracteres
+    const consolidated = (checkId) => {
         let s11 = '<<<<<<<<<<<'; // 11 unidades
         let s15 = '<<<<<<<<<<<<<<<'; // 15 unidades
-        let check = $('input[type="checkbox"]');
-        var checkId;
         let sp = '';
 
-        $.each(check, v => {
-            if ($(check[v]).is(':checked')) {
-                checkId = check[v].id;
-            }
-        });
+        // Parte para preparar el luglar dnd estaran los caracteres
+        let containerIc = $('#container-ic');
+        containerIc.attr('class', `${'container-ic-'+checkId}`)
 
-
+        //Espacio para el IC1
         let ced = $('#cedula').val();
-        let cedId = '';
-        let date = '';
-        for (let i = 0; i < ced.length; i++) {
-            if (i >= 3 && i <= 10) {
-                if (ced[i] === '-') {
-                    continue;
-                } else {
-                    date += ced[i];
-                }
-            } else {
-                cedId += ced[i];
-            }
-        }
+        let cedId = ced.split('-');
 
-        let ic1 = 'IDNIC' + '<' + cedId + '8' + s15;
-        console.log(ic1)
-        console.log(date)
+        let ic1 = 'IDNIC' + '<' + cedId[0] + cedId[2] + '8' + s15;
 
-        let a = '';
-        let b = '';
-        let c = '';
-
+        // Espacio para el IC2
         let sex = $('#sexo').val();
-
-        // bloque para separar el anio de expiracion
-        for (let j = 0; j < date.length; j++) {
-            if (j <= 1) {
-                a += date[j];
-            } else if (j >= 2 && j <= 3) {
-                b += date[j];
-            } else if (j >= 4 && j <= 5) {
-                c += date[j];
-            }
-        }
-
-        let d = '';
-        let e = '';
-        let f = '';
+        let birthday = $('#fecha_nacimiento').val();
         let expiration = $('#expiracion').val();
+        let arrBirthday = birthday.split('-'); //arrBirthdayday
+        let arrExp = expiration.split('-'); //Expiraion
+        let yearBirthday = arrBirthday[0].split('');
+        let yearExp = arrExp[0].split('');
 
-        // bloque para separar la fecha de expiracion
+        let ic2 = yearBirthday[2] + yearBirthday[3] + arrBirthday[1] + arrBirthday[2] + '6' + sex + yearExp[2] + yearExp[3] + arrExp[1] + arrExp[2] + '9NIC' + s11 + '8';
 
-        for (let x = 0; x < expiration.length; x++) {
-            if (x === 2 || x === 3) {
-                d += expiration[x];
-            } else if (x >= 5 && x <= 6) {
-                e += expiration[x];
-            } else if (x >= 8 && x <= 9) {
-                f += expiration[x];
-            }
-        }
-
-        let ic2 = c + b + a + '6' + sex + d + e + f + '9NIC' + s11 + '8';
 
         // ESPACIO PARA REALIZA EL IC3
 
@@ -121,14 +106,7 @@ $(function () {
         let a1 = $('#a1').val();
         let a2 = $('#a2').val();
         let ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<';
-
-        // VALIDACION DE LA CANTDAD DE CARACTERES DEL NOMBRE COMPLETO Y CARACTERES ESPECIALES
-        // let ic3 = signals(ntotal);
         let ic3 = ntotal;
-
-        // bloque para poner los span con el consolidado final parte tracera
-
-        // let sp = '';
         let s = [ic1, ic2, ic3];
         let m = ['ic1', 'ic2', 'ic3'];
 
@@ -140,7 +118,7 @@ $(function () {
                 var x = s[a].charAt(i);
 
                 if (!number) {
-                    sp += `<span class="${checkId} ${checkId +'-number'}">${x}</span>`;
+                    sp += `<span class="${checkId}  ${checkId +'-number'}">${x}</span>`;
                     continue;
                 }
                 sp += `<span class="${checkId}">${x}</span>`
@@ -149,11 +127,12 @@ $(function () {
             sp = '';
         }
         container.append(sp)
+        urlsImages(checkId);
     }
 
     // Funcion para recolectar la informacion ingresada en los inputs
 
-    const recollect = (checkId, formato) => {
+    const recollect = (checkId) => {
         var sp = '';
 
         $.each(info, v => {
@@ -170,7 +149,7 @@ $(function () {
         })
 
         container.append(sp);
-        // consolidated(checkId)
+        consolidated(checkId)
     }
 
     // parte en donde hacemos la descarga
@@ -216,88 +195,54 @@ $(function () {
         } else if (v === 0) {
             alert('Error de seleccion', 'Por favor, selecciona un formato');
         } else {
-            let arrayFormato = inputId.split('');
-            let formato = arrayFormato[1] + arrayFormato[2];
-            let data = {
-                'formato': formato,
-                'checkId': inputId
+            // let arrayFormato = inputId.split('');
+            // let formato = arrayFormato[1] + arrayFormato[2];
+            // let data = {
+            //     'formato': formato,
+            //     'checkId': inputId
+            // }
+            // recollect(data.checkId, data.formato);
+            if (inputId === 'f02') {
+                container.attr('width', '450px');
+            } else if (inputId === 'f04') {
+                container.attr('width', '414px');
             }
-            recollect(data.checkId, data.formato);
+            recollect(inputId);
         }
-    }
-
-    // Function for codifier the images to push into container 'format'
-    const urlsImages = () => {
-        let person = $('#imgPerson')[0].files;
-        let signature = $('#imgSignature')[0].files;
-
-        if (person.length === 0 && signature.length === 0) {
-            alert('Error de seleccion', 'Seleccione las imagenes correspondientes')
-        } else if (person.length === 0 && signature.length === 1) {
-            alert('Error de seleccion', 'Seleccione la imagen de la persona')
-        } else if (person.length === 1 && signature.length === 0) {
-            alert('Error de seleccion', 'Seleccione la imagen de la firma')
-        } else {
-            let urlPerson = URL.createObjectURL(person[0])
-            let urlSignature = URL.createObjectURL(signature[0])
-            createPreview(urlPerson, urlSignature);
-        }
-    }
-
-    const pilot = () => {
-        let n1 = $('#n1').val();
-        let n2 = $('#n2').val();
-        let a1 = $('#a1').val();
-        let a2 = $('#a2').val();
-        let ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<';
-        let sp = '';
-        // son cuatro signos los importantes, al final solo son de relleno
-
-        // VALIDACION DE LA CANTDAD DE CARACTERES DEL NOMBRE COMPLETO Y CARACTERES ESPECIALES
-        let s = signals(ntotal);
-        sp += `<span class="f04-ic2 f04">${s}</span>`;
-        container.append(sp)
-
-    }
-
-    $('#visualize').on('click', function () {
-        validateCheckbox();
-        // recollect();
-        // consolidated();
-        // urlsImages();
-        // pilot();
-
-    })
-
-    //Genera las previsualizaciones de las imagenes de la persona y la firma, donde se encuentra la imagen de la cedula
-    function createPreview(person, signature) {
-        let imgPerson = $('#container-img-person')
-        let imgSignature = $('#container-img-signature')
-        let check = validateCheckbox();
-
-        imgPerson.attr('src', `${person}`)
-        imgSignature.attr('src', `${signature}`)
-        // imgSignature.css('backgroundImage', `url(${signature})`)
     }
 
     // Funcion para mostrar en el modal la vista previa del formato seleccionado o a hacer
+    $('input[type="checkbox"]').on('change', function (e) {
 
-    // $('input[type="checkbox"]').on('change', function (e) {
+        if ($(this).is(':checked')) {
+            let position = $(this).attr('data-image');
+            let containerImg = $('#format')
+            containerImg.css('backgroundImage', `url(${img[position]})`)
+            // $('#myModal').modal('show');
 
-    //     if ($(this).is(':checked')) {
-    //         let position = $(this).attr('data-image');
-    //         let containerImg = $('#img-ced')
-    //         containerImg.attr('src', img[position])
-    //         $('#myModal').modal('show');
+        } else {
+            // Hacer algo si el checkbox ha sido deseleccionado
+            console.log("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+        }
+    });
 
-    //     } else {
-    //         // Hacer algo si el checkbox ha sido deseleccionado
-    //         console.log("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
-    //     }
-    // });
 
+    // BTN PARA VISUALIZAR LA INFORMACION INSERTADA
+    $('#visualize').on('click', function () {
+        validateCheckbox();
+    })
     $('#cli').on('click', function () {
-        console.log(validateCheckbox());
+        let s11 = '<<<<<<<<<<<'; // 11 unidades
+
+        let birthday = $('#fecha_nacimiento').val();
+        let expiration = $('#expiracion').val();
+        let arrBirthday = birthday.split('-'); //arrBirthdayday
+        let arrExp = expiration.split('-'); //Expiraion
+        let yearBirthday = arrBirthday[0].split('');
+        let yearExp = arrExp[0].split('');
+
+        let ic2 = yearBirthday[2] + yearBirthday[3] + arrBirthday[1] + arrBirthday[2] + '6' + 'M' + yearExp[2] + yearExp[3] + arrExp[1] + arrExp[2] + '9NIC' + s11 + '8';
+        console.log(ic2)
     })
 
 })
