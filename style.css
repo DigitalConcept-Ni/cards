@@ -11,16 +11,18 @@
 .ced {
   /* font-size: 10.73px; */
   font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 900;
+  font-weight: 600;
 }
+
+
 #format {
   position: relative;
   height: 700px;
   /* width: 414px; ANCHO PARA EL FORMATO 04 */
-  width: 450px; /*ANCHO PARA EL FORMATO 02*/
-  background-image: url("img/f2.jpeg");
+   width: 450px; /*ANCHO PARA EL FORMATO 02 */
+  /* background-image: url("img/f2.jpeg"); */
   background-repeat: no-repeat;
-  background-color: red;
+  background-color: white;
   background-position: center;
   background-size: center;
 }
@@ -32,4 +34,13 @@
   display: flex;
   flex-direction: column;
   /* border: 2px solid black; */
+}
+
+/* ESTILOS DE LOS CONTENEDORES DE LAS IMAGENES */
+
+.container-img {
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

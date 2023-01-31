@@ -10,7 +10,7 @@
 .f04-cedula {
   position: absolute;
   top: 145px;
-  left: 160px;
+  left: 170px;
   font-size: 18px;
   font-weight: 100;
   letter-spacing: 1px;
@@ -192,7 +192,7 @@
 
 /* STYELES FOR IMAGES */
 
-#container-img-person {
+.img-person-f04 {
   position: absolute;
   height: 105px;
   width: 80px;
@@ -204,7 +204,7 @@
   background-size: cover;
 }
 
-#container-img-signature {
+.img-signature-f04 {
   position: absolute;
   height: 50px;
   width: 150px;

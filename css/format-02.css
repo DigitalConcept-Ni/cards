@@ -12,7 +12,7 @@
   top: 125px;
   left: 190px;
   font-size: 17.5px;
-  font-weight: 600;
+  /* font-weight: 400; */
   letter-spacing: 1.3px;
 }
 
@@ -29,7 +29,6 @@
   left: 172px;
   font-size: 10.73px;
 }
-
 
 .f02-a1 {
   position: absolute;
@@ -119,7 +118,7 @@
 
 /* PARTE DE INFORMACION CONSOLIDADA */
 
-.f04 {
+.f02 {
   /* background: white; */
   font-size: 13px;
   width: 11.5px;
@@ -127,15 +126,10 @@
   font-family: "BIZ UDGothic", sans-serif;
 }
 
-.f04-number {
+.f02-number {
   font-family: "Barlow", sans-serif;
   font-size: 15px;
   margin-top: -2.3px;
-}
-
-.ic {
-  display: flex;
-  justify-content: space-between;
 }
 
 /* .f04-ic1 {
@@ -156,12 +150,12 @@
   left: 45px;
 } */
 
-.container-ic-f03 { 
-  bottom: 95px;
+.container-ic-f02 {
+  bottom: 90px;
   left: 39px;
   height: 60px;
-  width: 345px;
-  border: 2px solid black;
+  width: 375Px;
+  /* border: 2px solid black; */
 }
 
 /* .color{
@@ -171,6 +165,11 @@
   text-align: center;
   font-family: "BIZ UDGothic", sans-serif;
 } */
+
+.ic {
+  display: flex;
+  justify-content: space-between;
+}
 
 .ic1 {
   /* background-color: red; */
@@ -195,26 +194,16 @@
 
 /* STYELES FOR IMAGES */
 
-.img-person-02 {
-  position: absolute;
+.img-person-f02 {
   height: 105px;
   width: 80px;
-  /* border: 3px solid red; */
   top: 160px;
   left: 45px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
-.img-signature-02 {
-  position: absolute;
+.img-signature-f02 {
   height: 50px;
   width: 150px;
-  /* border: 2px solid red; */
   top: 245px;
   left: 190px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }

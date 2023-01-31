@@ -50,7 +50,7 @@
 
                     <div class="form-group">
                         <label for="f01">Formato 1</label>
-                        <input id="f01" data-image="0" type="checkbox">
+                        <input id="f01" data-image="0" type="checkbox" disabled>
                     </div>
 
                     <div class="form-group">
@@ -60,12 +60,12 @@
 
                     <div class="form-group">
                         <label for="f03">Formato 3</label>
-                        <input id="f03" data-image="2" type="checkbox">
+                        <input id="f03" data-image="2" type="checkbox" disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="f04">Formato 4</label>
-                        <input id="f04" data-image="3" type="checkbox">
+                        <input id="f04" data-image="3" type="checkbox" disabled>
                     </div>
 
                 </div>
@@ -244,8 +244,8 @@
         <!-- <img id="img-person" class="" style="width: 95%;" alt="imgage-cedulas">
         <img id="img-signature" style="width: 95%;" alt="imgage-cedulas"> -->
 
-        <img id="ccontainer-img-person" class="img-person-02"></img>
-        <img id="ccontainer-img-signature" class="img-signature-02"></img>
+        <img id="container-img-person" class="container-img"></img>
+        <img id="container-img-signature" class="container-img"></img>
 
         <!-- <span class="f02-cedula">001-060897-0034S</span>
         <span class="f02-n1 ced">BRYAN</span>
@@ -307,23 +307,38 @@
             $("#download").click();
         }
 
-        $(document).ready(function () {
-            var element = $("#format");
+        var element = $("#format");
 
-            $("#download").on('click', function () {
-                html2canvas(element, {
-                    allowTaint: true,
-                    onrendered: function (canvas) {
-                        var imageData = canvas.toDataURL("image/jpeg",'1.0');
-                        var newData = imageData.replace(/^data:image\/jpg/,
-                            "data:application/octet-stream");   
-                        $("#download").attr("download", "image.jpg").attr("href", newData);
-                    }
-                });
-
+        $("#download").on('click', function () {
+            html2canvas(element, {
+                allowTaint: true,
+                onrendered: function (canvas) {
+                    var imageData = canvas.toDataURL("image/jpeg", '1.0');
+                    var newData = imageData.replace(/^data:image\/jpg/,
+                        "data:application/octet-stream");
+                    $("#download").attr("download", "image.jpg").attr("href", newData);
+                }
             });
 
         });
+
+        // $(document).ready(function () {
+        //     var element = $("#format");
+
+        //     $("#download").on('click', function () {
+        //         html2canvas(element, {
+        //             allowTaint: true,
+        //             onrendered: function (canvas) {
+        //                 var imageData = canvas.toDataURL("image/jpeg", '1.0');
+        //                 var newData = imageData.replace(/^data:image\/jpg/,
+        //                     "data:application/octet-stream");
+        //                 $("#download").attr("download", "image.jpg").attr("href", newData);
+        //             }
+        //         });
+
+        //     });
+
+        // });
     </script>
 </body>
 
