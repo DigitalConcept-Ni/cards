@@ -1,0 +1,150 @@
+/* FORMATO NUMEOR 4 PARTE DELANTERA */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Adlam+Unjoined&display=swap");
+/* FONT FOR THE PART IC LETRAS */
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDGothic&display=swap");
+
+/* FUENTE PARA LOS NUMEROS IC */
+@import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
+
+
+.f01-width{
+  width: 450px;
+}
+
+.f01-cedula {
+  position: absolute;
+  top: 138px;
+  left: 190px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.f01-n1 {
+  position: absolute;
+  top: 159px;
+  left: 242px;
+  font-size: 15px;
+}
+
+.f01-n2 {
+  position: absolute;
+  top: 178px;
+  left: 242px;
+  font-size: 15px;
+}
+
+.f01-a1 {
+  position: absolute;
+  top: 198px;
+  left: 242px;
+  font-size: 15px;
+}
+
+.f01-a2 {
+  position: absolute;
+  top: 218px;
+  left: 242px;
+  font-size: 15px;
+}
+
+.f01-fecha_nacimiento {
+  position: absolute;
+  top: 362px;
+  left: 90px;
+  font-size: 13px;
+}
+
+.f01-sexo {
+  position: absolute;
+  top: 412px;
+  left: 68px;
+  font-size: 13px;
+}
+
+.f01-emision {
+  position: absolute;
+  top: 303px;
+  left: 215px;
+  font-size: 13px;
+}
+
+.f01-expiracion {
+  position: absolute;
+  top: 303px;
+  left: 315px;
+  font-size: 13px;
+}
+
+/* PARTE TRASERA NUMERO 4 */
+
+.f01-direccion1 {
+  position: absolute;
+  top: 445px;
+  left: 27px;
+  font-size: 13px;
+}
+
+.f01-direccion2 {
+  position: absolute;
+  top: 460px;
+  left: 27px;
+  font-size: 13px;
+}
+
+.f04-direccion3 {
+  position: absolute;
+  top: 424px;
+  left: 165px;
+  font-size: 12.26px;
+}
+
+.f01-municipio {
+  position: absolute;
+  top: 475px;
+  left: 27px;
+  font-size: 13px;
+}
+
+.f01-departamento {
+  position: absolute;
+  top: 490px;
+  left: 27px;
+  font-size: 13px;
+}
+
+.f01-lugar_nacimiento {
+  position: absolute;
+  top: 505px;
+  left: 27px;
+  font-size: 13px;
+}
+
+/* STYELES FOR IMAGES */
+
+.img-person-f01 {
+  height: 150px;
+  width: 115px;
+  /* border: 1px solid red; */
+  top: 130px;
+  left: 35px;
+}
+
+.img-signature-f01 {
+  position: absolute;
+  height: 55px;
+  width: 150px;
+  /* border: 1px solid red; */
+  top: 248px;
+  left: 170px;
+}
+
+.img-digital-f01 {
+  position: absolute;
+  height: 145px;
+  width: 110px;
+  /* border: 1px solid red; */
+  bottom: 170px;
+  right: 60px;
+}

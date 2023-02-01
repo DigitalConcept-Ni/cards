@@ -21,19 +21,6 @@ $(function () {
     let img = ['img/f1.jpeg', 'img/f2.jpeg', 'img/f3.jpeg', 'img/f4.jpg']
     let container = $('#format') // Selector del contenedor donde se pondra la informacion
 
-    $("#download").on('click', function () {
-        html2canvas(container, {
-            allowTaint: true,
-            onrendered: function (canvas) {
-                var imageData = canvas.toDataURL("image/jpeg", '1.0');
-                var newData = imageData.replace(/^data:image\/jpg/,
-                    "data:application/octet-stream");
-                $("#download").attr("download", "image.jpg").attr("href", newData);
-            }
-        });
-
-    });
-
     const alert = (title, message) => {
         Swal.fire({
             icon: 'error',
@@ -42,15 +29,19 @@ $(function () {
         })
     }
 
-
     //Genera las previsualizaciones de las imagenes de la persona y la firma, donde se encuentra la imagen de la cedula
-    const createPreview = (person, signature, formato) => {
+    const createPreview = (data) => {
         let imgPerson = $('#container-img-person');
         let imgSignature = $('#container-img-signature');
 
-        imgPerson.attr('src', `${person}`).addClass(`${'img-person-'+formato}`);
-        imgSignature.attr('src', `${signature}`).addClass(`${'img-signature-'+formato}`)
+        if (data['formato'] === 'f01') {
+            let imgDigital = $('#container-img-digital');
+            imgDigital.attr('src', `${data['urlPerson']}`).addClass(`${'img-digital-'+data['formato']}`);
+        }
+        imgPerson.attr('src', `${data['urlPerson']}`).addClass(`${'img-person-'+data['formato']}`);
+        imgSignature.attr('src', `${data['urlSignature']}`).addClass(`${'img-signature-'+data['formato']}`)
         // imgSignature.css('backgroundImage', `url(${signature})`)
+
     }
 
     // Function for codifier the images to push into container 'format'
@@ -58,17 +49,56 @@ $(function () {
         let person = $('#imgPerson')[0].files;
         let signature = $('#imgSignature')[0].files;
 
-        if (person.length === 0 && signature.length === 0) {
-            alert('Error de seleccion', 'Seleccione las imagenes correspondientes')
-        } else if (person.length === 0 && signature.length === 1) {
-            alert('Error de seleccion', 'Seleccione la imagen de la persona')
-        } else if (person.length === 1 && signature.length === 0) {
-            alert('Error de seleccion', 'Seleccione la imagen de la firma')
+        if (formato === 'f01') {
+            let digital = $('#imgDigital')[0].files;
+
+            if (person.length === 0 && signature.length === 0 && digital.length === 0) {
+                alert('Error de seleccion', 'Seleccione las imagenes correspondientes')
+            } else if (person.length === 1 && signature.length === 0 && digital.length === 0) {
+                alert('Error de seleccion', 'Seleccione la imagen de la firma y huella')
+            } else if (person.length === 0 && signature.length === 1 && digital.length === 0) {
+                alert('Error de seleccion', 'Seleccione la imagen de la persona y huella')
+            } else if (person.length === 0 && signature.length === 0 && digital.length === 1) {
+                alert('Error de seleccion', 'Seleccione la imagen de la persona y la firma')
+            } else if (person.length === 1 && signature.length === 0 && digital.length === 1) {
+                alert('Error de seleccion', 'Seleccione la imagen de la firma')
+            } else if (person.length === 1 && signature.length === 1 && digital.length === 0) {
+                alert('Error de seleccion', 'Seleccione la imagen de la huella')
+            } else if (person.length === 0 && signature.length === 1 && digital.length === 1) {
+                alert('Error de seleccion', 'Seleccione la imagen de la persona')
+            } else {
+                let urlPerson = URL.createObjectURL(person[0])
+                let urlSignature = URL.createObjectURL(signature[0])
+                let urlDigital = URL.createObjectURL(digital[0])
+                let data = {
+                    'urlPerson': urlPerson,
+                    'urlSignature': urlSignature,
+                    'urlDigital': urlDigital,
+                    'formato': formato
+                }
+                createPreview(data);
+            }
+
         } else {
-            let urlPerson = URL.createObjectURL(person[0])
-            let urlSignature = URL.createObjectURL(signature[0])
-            createPreview(urlPerson, urlSignature, formato);
+            if (person.length === 0 && signature.length === 0) {
+                alert('Error de seleccion', 'Seleccione las imagenes correspondientes')
+            } else if (person.length === 0 && signature.length === 1) {
+                alert('Error de seleccion', 'Seleccione la imagen de la persona')
+            } else if (person.length === 1 && signature.length === 0) {
+                alert('Error de seleccion', 'Seleccione la imagen de la firma')
+            } else {
+                let urlPerson = URL.createObjectURL(person[0]);
+                let urlSignature = URL.createObjectURL(signature[0]);
+                let data = {
+                    'urlPerson': urlPerson,
+                    'urlSignature': urlSignature,
+                    'urlDigital': 'None',
+                    'formato': formato
+                }
+                createPreview(data);
+            }
         }
+
     }
 
     // Funcion para hacer el consilado final parte tracera con los caracteres
@@ -134,47 +164,52 @@ $(function () {
 
     const recollect = (checkId) => {
         var sp = '';
+        let nComplete = '';
+        let aComplete = '';
 
         $.each(info, v => {
             var data = $(`#${v}`);
 
-            if (v === 'fecha_nacimiento' || v === 'emision' || v === 'expiracion') {
-                var dt = data.val();
-                let arrDate = dt.split('-');
-                let finalDate = arrDate[2] + '-' + arrDate[1] + '-' + arrDate[0]
-                sp += `<span class="${checkId + '-' + v} ced">${finalDate}</span>`;
+            if (v === 'n1' || v === 'n2') {
+                if (checkId === 'f04' || checkId === 'f03' || checkId === 'f02') {
+                    nComplete += data.val();
+                    nComplete += ' ';
+                    if (v === 'n2') {
+                        sp += `<span class="${checkId + '-n1'} ced">${nComplete}</span>`;
+                    }
+                }
+            } else if (v === 'a1' || v === 'a2') {
+                if (checkId === 'f04') {
+                    aComplete += data.val();
+                    aComplete += ' ';
+                    if (v === 'a2') {
+                        sp += `<span class="${checkId + '-a1'} ced">${aComplete}</span>`;
+                    }
+                } else if (checkId === 'f02' || checkId === 'f03') {
+                    sp += `<span class="${checkId + '-'+v} ced">${data.val()}</span>`;
+                }
             } else {
-                sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
+                if (v === 'fecha_nacimiento' || v === 'emision' || v === 'expiracion') {
+                    var dt = data.val();
+                    let arrDate = dt.split('-');
+                    let finalDate = arrDate[2] + '-' + arrDate[1] + '-' + arrDate[0]
+                    sp += `<span class="${checkId + '-' + v} ced">${finalDate}</span>`;
+                } else {
+                    sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
+                }
             }
+
+
         })
 
         container.append(sp);
-        consolidated(checkId)
+        if (checkId === 'f01') {
+            urlsImages(checkId);
+
+        } else {
+            consolidated(checkId);
+        }
     }
-
-    // parte en donde hacemos la descarga
-    // function autoClick(){
-    //     $("#download").click();
-    //   }
-
-    //     var element = $("#format");
-
-    //     $("#download").on('click', function(){
-
-    //         console.log('entre');
-    //         console.log(element);
-
-    //       html2canvas(element, {
-    //         onrendered: function(canvas) {
-    //           var imageData = canvas.toDataURL("image/jpg");
-    //           var newData = imageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
-    //           $("#download").attr("download", "image.jpg").attr("href", newData);
-    //         }
-    //       });
-
-    //     });
-
-    //   fin de parte de la descarga
 
     //Funcion para validad cuantos checkbox estan habilitados
     const validateCheckbox = () => {
@@ -216,9 +251,17 @@ $(function () {
 
         if ($(this).is(':checked')) {
             let position = $(this).attr('data-image');
-            let containerImg = $('#format')
+            let id = $(this).attr('id');
+            let containerImg = $('#format');
             containerImg.css('backgroundImage', `url(${img[position]})`)
-            // $('#myModal').modal('show');
+
+            if (id === 'f01' || id === 'f02' || id === 'f03') {
+                containerImg.addClass(`${id+'-width'}`)
+            }
+            if (id === 'f04') {
+                containerImg.addClass(`${id+'-width'}`)
+            }
+
 
         } else {
             // Hacer algo si el checkbox ha sido deseleccionado

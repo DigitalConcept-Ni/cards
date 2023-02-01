@@ -7,6 +7,11 @@
 /* FUENTE PARA LOS NUMEROS IC */
 @import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
 
+
+.f04-width{
+  width: 414px;
+}
+
 .f04-cedula {
   position: absolute;
   top: 145px;
@@ -168,27 +173,6 @@
   text-align: center;
   font-family: "BIZ UDGothic", sans-serif;
 } */
-
-.ic1{
-  /* background-color: red; */
-  height: 33.33px;
-  width: 100%;
-  font-weight: 700;
-}
-
-.ic2{
-  /* background-color: blue; */
-  height: 33.33px;
-  width: 100%;
-  font-weight: 700;
-}
-
-.ic3{
-  /* background-color: green; */
-  height: 33.33px;
-  width: 100%;
-  font-weight: 700;
-}
 
 /* STYELES FOR IMAGES */
 

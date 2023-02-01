@@ -10,17 +10,16 @@
 }
 .ced {
   /* font-size: 10.73px; */
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
 }
-
 
 #format {
   position: relative;
   height: 700px;
   /* width: 414px; ANCHO PARA EL FORMATO 04 */
-   width: 450px; /*ANCHO PARA EL FORMATO 02 */
-  /* background-image: url("img/f2.jpeg"); */
+  /*width: 450px; ANCHO PARA EL FORMATO 02*/
+  /* background-image: url("img/f3.jpeg"); */
   background-repeat: no-repeat;
   background-color: white;
   background-position: center;
@@ -29,11 +28,37 @@
 
 /* ESTILOS DEL CONTENEDOR DE INFORMACION CONSOLIDADA */
 
-#container-ic  {
+#container-ic {
   position: absolute;
   display: flex;
   flex-direction: column;
   /* border: 2px solid black; */
+}
+
+.ic {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ic1 {
+  /* background-color: red; */
+  height: 33.33px;
+  width: 100%;
+  font-weight: 700;
+}
+
+.ic2 {
+  /* background-color: blue; */
+  height: 33.33px;
+  width: 100%;
+  font-weight: 700;
+}
+
+.ic3 {
+  /* background-color: green; */
+  height: 33.33px;
+  width: 100%;
+  font-weight: 700;
 }
 
 /* ESTILOS DE LOS CONTENEDORES DE LAS IMAGENES */

@@ -7,6 +7,10 @@
 /* FUENTE PARA LOS NUMEROS IC */
 @import url("https://fonts.googleapis.com/css2?family=Barlow&display=swap");
 
+.f02-width{
+  width: 450px;
+}
+
 .f02-cedula {
   position: absolute;
   top: 125px;
@@ -132,64 +136,12 @@
   margin-top: -2.3px;
 }
 
-/* .f04-ic1 {
-  position: absolute;
-  bottom: 138px;
-  left: 45px;
-}
-
-.f04-ic2 {
-  position: absolute;
-  bottom: 120px;
-  left: 45px;
-}
-
-.f04-ic3 {
-  position: absolute;
-  bottom: 96px;
-  left: 45px;
-} */
-
 .container-ic-f02 {
   bottom: 90px;
   left: 39px;
   height: 60px;
   width: 375Px;
   /* border: 2px solid black; */
-}
-
-/* .color{
-  background: white;
-  font-size: 13px;
-  width: 11.5px;
-  text-align: center;
-  font-family: "BIZ UDGothic", sans-serif;
-} */
-
-.ic {
-  display: flex;
-  justify-content: space-between;
-}
-
-.ic1 {
-  /* background-color: red; */
-  height: 33.33px;
-  width: 100%;
-  font-weight: 700;
-}
-
-.ic2 {
-  /* background-color: blue; */
-  height: 33.33px;
-  width: 100%;
-  font-weight: 700;
-}
-
-.ic3 {
-  /* background-color: green; */
-  height: 33.33px;
-  width: 100%;
-  font-weight: 700;
 }
 
 /* STYELES FOR IMAGES */
