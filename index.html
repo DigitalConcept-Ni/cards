@@ -21,7 +21,7 @@
     <title>CEDULAS | Digital Concept</title>
 
     <!-- GENERAL FUNCTIONS -->
-    <script src="main.js"></script>
+    <!-- <script src="main.js"></script> -->
 
     <!-- GENERAL STYLES -->
     <link rel="stylesheet" href="style.css">
@@ -30,9 +30,9 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body onload="autoClick();">
+<body onload="autoClick()">
 
-    <a class="btn btn-success" id="cli">Click me</a>
+    <!-- <a class="btn btn-success" id="cli">Click me</a> -->
 
     <!-- CONTENEDOR DEL FORUMLARIO DE DATOS -->
     <div class="container">
@@ -50,7 +50,7 @@
 
                     <div class="form-group">
                         <label for="f01">Formato 1</label>
-                        <input id="f01" data-image="0" type="checkbox" disabled>
+                        <input id="f01" data-image="0" type="checkbox">
                     </div>
 
                     <div class="form-group">
@@ -60,12 +60,12 @@
 
                     <div class="form-group">
                         <label for="f03">Formato 3</label>
-                        <input id="f03" data-image="2" type="checkbox" disabled>
+                        <input id="f03" data-image="2" type="checkbox">
                     </div>
 
                     <div class="form-group">
                         <label for="f04">Formato 4</label>
-                        <input id="f04" data-image="3" type="checkbox" disabled>
+                        <input id="f04" data-image="3" type="checkbox">
                     </div>
 
                 </div>
@@ -221,6 +221,13 @@
                         <input type="file" name="img-signature" id="imgSignature">
                     </div>
 
+                    <hr>
+
+                    <div class="form-group">
+                        <label for="img-signature">Imagen de la huella: </label>
+                        <input type="file" name="img-digital" id="imgDigital">
+                    </div>
+
                 </div>
 
             </div>
@@ -228,7 +235,8 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <a id="visualize" class="btn btn-success">Visualizar</a>
-                <a id="download" class="btn btn-warning">Generar</a>
+                <a id="download" class="btn btn-warning" download>Generar</a>
+                <a class="btn btn-primary" id="refresh">Limpiar</a>
             </div>
         </div>
         <!-- /.card-footer-->
@@ -246,25 +254,26 @@
 
         <img id="container-img-person" class="container-img"></img>
         <img id="container-img-signature" class="container-img"></img>
+        <img id="container-img-digital" class="container-img"></img>
 
-        <!-- <span class="f02-cedula">001-060897-0034S</span>
-        <span class="f02-n1 ced">BRYAN</span>
-        <span class="f02-n2 ced">ANTONIO</span>
-        <span class="f02-a1 ced">URBINA</span>
-        <span class="f02-a2 ced">GUEVARA</span>
-        <span class="f02-fecha_nacimiento ced">06-08-1997</span>
-        <span class="f02-lugar_nacimiento ced">MANAGUA</span>
-        <span class="f02-sexo ced">M</span>
-        <span class="f02-emision ced">10-10-2018</span>
-        <span class="f02-expiracion ced">10-10-2028</span> -->
+        <!-- <span class="f03-cedula">001-060897-0034S</span>
+        <span class="f03-n1 ced">BRYAN</span>
+        <span class="f03-n2 ced">ANTONIO</span>
+        <span class="f03-a1 ced">URBINA</span>
+        <span class="f03-a2 ced">GUEVARA</span>
+        <span class="f03-fecha_nacimiento ced">06-08-1997</span>
+        <span class="f03-lugar_nacimiento ced">MANAGUA</span>
+        <span class="f03-sexo ced">M</span>
+        <span class="f03-emision ced">10-10-2018</span>
+        <span class="f03-expiracion ced">10-10-2028</span> -->
 
         <!-- PARTE TRACERA  -->
-        <!-- <span class="f02-direccion1 ced">VI. SAN JACINTO</span>
-        <span class="f02-direccion2 ced">COSTADO SUROESTE COLEGIO PADRE</span>
-        <span class="f02-direccion3 ced">BRUNIO MARTINEZ CASA N C7-67</span>
-        <span class="f02-municipio ced">MANAGUA</span>
-        <span class="f02-departamento ced">MANAGUA</span>
-        <span class="f02-reposicion ced">01</span> -->
+        <!-- <span class="f03-direccion1 ced">VI. SAN JACINTO</span>
+        <span class="f03-direccion2 ced">COSTADO SUROESTE COLEGIO PADRE</span>
+        <span class="f03-direccion3 ced">BRUNIO MARTINEZ CASA N C7-67</span>
+        <span class="f03-municipio ced">MANAGUA</span>
+        <span class="f03-departamento ced">MANAGUA</span>
+        <span class="f03-reposicion ced">01</span> -->
 
         <!-- PARTE DE INFORMACION GENERAL // CONSOLIDADA -->
         <div id="container-ic">
@@ -302,43 +311,34 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
 
+    <script src="main.js"></script>
+
     <script>
         function autoClick() {
             $("#download").click();
         }
+        $(document).ready(function () {
 
-        var element = $("#format");
+            let refresh = $('#refresh')
+            refresh.on('click', function () {
+                location.reload();
+            })
 
-        $("#download").on('click', function () {
-            html2canvas(element, {
-                allowTaint: true,
-                onrendered: function (canvas) {
-                    var imageData = canvas.toDataURL("image/jpeg", '1.0');
-                    var newData = imageData.replace(/^data:image\/jpg/,
-                        "data:application/octet-stream");
-                    $("#download").attr("download", "image.jpg").attr("href", newData);
-                }
+            var element = $("#format");
+
+            $("#download").on('click', function () {
+                html2canvas(element, {
+                    allowTaint: true,
+                    onrendered: function (canvas) {
+                        var imageData = canvas.toDataURL("image/jpeg", '1.0');
+                        var newData = imageData.replace(/^data:image\/jpg/,
+                            "data:application/octet-stream");
+                        $("#download").attr("download", "image.jpg").attr("href", newData);
+                    }
+                });
+
             });
-
-        });
-
-        // $(document).ready(function () {
-        //     var element = $("#format");
-
-        //     $("#download").on('click', function () {
-        //         html2canvas(element, {
-        //             allowTaint: true,
-        //             onrendered: function (canvas) {
-        //                 var imageData = canvas.toDataURL("image/jpeg", '1.0');
-        //                 var newData = imageData.replace(/^data:image\/jpg/,
-        //                     "data:application/octet-stream");
-        //                 $("#download").attr("download", "image.jpg").attr("href", newData);
-        //             }
-        //         });
-
-        //     });
-
-        // });
+        })
     </script>
 </body>
 
