@@ -137,8 +137,10 @@ $(function () {
         let ntotal;
         let arrn2 = n2.split(' ');
 
-        if (arrn2.length > 1) {
+        if (arrn2.length >= 2) {
             ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<<<<<<<';
+        } else if (arrn2.length >= 3) {
+            ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<' + arrn2[2] + '<<<<<<<';
         } else if (n2 === '') {
             ntotal = a1 + '<' + a2 + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
         } else if (a2 === '') {
@@ -284,6 +286,9 @@ $(function () {
             }
             if (id === 'f04') {
                 containerImg.addClass(`${id+'-width'}`)
+                let direccion = $('#direccion3-block')
+                direccion.toggle()
+
             }
 
 
@@ -292,6 +297,9 @@ $(function () {
             if (id === 'f01') {
                 let d = $('#blockDigital')
                 d.toggle()
+            } else if (id === 'f04') {
+                let direccion = $('#direccion3-block')
+                direccion.toggle()
             }
             // console.log("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
         }

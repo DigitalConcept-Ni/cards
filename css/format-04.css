@@ -7,7 +7,9 @@
 /* FUENTE PARA LOS NUMEROS IC */
 @import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
 
-
+#direccion3-block{
+  display: none;
+}
 .f04-width{
   width: 414px;
 }
