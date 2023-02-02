@@ -8,7 +8,7 @@ let info = {
     direccion3: '', // Direccion tercera parte
     cedula: '', // Cedula
     emision: '', // Fecha Emicion
-    expiracion: '', // Fecha de expiracion
+    // expiracion: '', // Fecha de expiracion
     reposicion: '', // Reposiciones
     municipio: '', // Municipio
     departamento: '', // Departamento
@@ -102,7 +102,7 @@ $(function () {
     }
 
     // Funcion para hacer el consilado final parte tracera con los caracteres
-    const consolidated = (checkId) => {
+    const consolidated = (checkId, expirationDate) => {
         let s11 = '<<<<<<<<<<<'; // 11 unidades
         let s15 = '<<<<<<<<<<<<<<<'; // 15 unidades
         let sp = '';
@@ -120,13 +120,12 @@ $(function () {
         // Espacio para el IC2
         let sex = $('#sexo').val();
         let birthday = $('#fecha_nacimiento').val();
-        let expiration = $('#expiracion').val();
         let arrBirthday = birthday.split('-'); //arrBirthdayday
-        let arrExp = expiration.split('-'); //Expiraion
-        let yearBirthday = arrBirthday[0].split('');
-        let yearExp = arrExp[0].split('');
+        let arrExp = expirationDate.split('-'); //Expiraion
+        let yearBirthday = arrBirthday[2].split('');
+        let yearExp = arrExp[2].split('');
 
-        let ic2 = yearBirthday[2] + yearBirthday[3] + arrBirthday[1] + arrBirthday[2] + '6' + sex + yearExp[2] + yearExp[3] + arrExp[1] + arrExp[2] + '9NIC' + s11 + '8';
+        let ic2 = yearBirthday[2] + yearBirthday[3] + arrBirthday[1] + arrBirthday[0] + '6' + sex + yearExp[2] + yearExp[3] + arrExp[1] + arrExp[0] + '9NIC' + s11 + '8';
 
 
         // ESPACIO PARA REALIZA EL IC3
@@ -135,7 +134,16 @@ $(function () {
         let n2 = $('#n2').val();
         let a1 = $('#a1').val();
         let a2 = $('#a2').val();
-        let ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<';
+        let ntotal;
+        if (n2 === '') {
+            ntotal = a1 + '<' + a2 + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
+        } else if (a2 === '') {
+            ntotal = a1 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<<<<<<<';
+        } else if (n2 === '' && a2 === '') {
+            ntotal = a1 + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
+        } else {
+            ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<<<<<<<';
+        }
         let ic3 = ntotal;
         let s = [ic1, ic2, ic3];
         let m = ['ic1', 'ic2', 'ic3'];
@@ -166,17 +174,28 @@ $(function () {
         var sp = '';
         let nComplete = '';
         let aComplete = '';
+        let expirationDate;
 
         $.each(info, v => {
             var data = $(`#${v}`);
 
-            if (v === 'n1' || v === 'n2') {
+            if (v === 'departamento') {
+                if (checkId === 'f01') {
+                    sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
+                    sp += `<span class="${checkId + '-' + v+'2'} ced">${data.val()}</span>`;
+                } else {
+                    sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
+                }
+            } else if (v === 'n1' || v === 'n2') {
                 if (checkId === 'f04' || checkId === 'f03' || checkId === 'f02') {
                     nComplete += data.val();
                     nComplete += ' ';
                     if (v === 'n2') {
                         sp += `<span class="${checkId + '-n1'} ced">${nComplete}</span>`;
                     }
+                } else {
+                    sp += `<span class="${checkId + '-'+v} ced">${data.val()}</span>`;
+
                 }
             } else if (v === 'a1' || v === 'a2') {
                 if (checkId === 'f04') {
@@ -187,19 +206,23 @@ $(function () {
                     }
                 } else if (checkId === 'f02' || checkId === 'f03') {
                     sp += `<span class="${checkId + '-'+v} ced">${data.val()}</span>`;
-                }
-            } else {
-                if (v === 'fecha_nacimiento' || v === 'emision' || v === 'expiracion') {
-                    var dt = data.val();
-                    let arrDate = dt.split('-');
-                    let finalDate = arrDate[2] + '-' + arrDate[1] + '-' + arrDate[0]
-                    sp += `<span class="${checkId + '-' + v} ced">${finalDate}</span>`;
                 } else {
-                    sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
+                    sp += `<span class="${checkId + '-'+v} ced">${data.val()}</span>`;
+
                 }
+            } else if (v === 'emision') {
+                var dt = data.val();
+                let arrDate = dt.split('-');
+                let year = arrDate[2].split('');
+                let a = year[2] + year[3];
+                let f = parseInt(a) + 10 //Fecha final pero sumando 10 anios
+
+                expirationDate = arrDate[0] + '-' + arrDate[1] + '-' + year[0] + year[1] + f;
+                sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
+                sp += `<span class="${checkId + '-' + 'expiracion'} ced">${expirationDate}</span>`;
+            } else {
+                sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
             }
-
-
         })
 
         container.append(sp);
@@ -207,7 +230,7 @@ $(function () {
             urlsImages(checkId);
 
         } else {
-            consolidated(checkId);
+            consolidated(checkId, expirationDate);
         }
     }
 
@@ -230,13 +253,6 @@ $(function () {
         } else if (v === 0) {
             alert('Error de seleccion', 'Por favor, selecciona un formato');
         } else {
-            // let arrayFormato = inputId.split('');
-            // let formato = arrayFormato[1] + arrayFormato[2];
-            // let data = {
-            //     'formato': formato,
-            //     'checkId': inputId
-            // }
-            // recollect(data.checkId, data.formato);
             if (inputId === 'f02') {
                 container.attr('width', '450px');
             } else if (inputId === 'f04') {
@@ -249,14 +265,18 @@ $(function () {
     // Funcion para mostrar en el modal la vista previa del formato seleccionado o a hacer
     $('input[type="checkbox"]').on('change', function (e) {
 
+        let id = $(this).attr('id');
         if ($(this).is(':checked')) {
             let position = $(this).attr('data-image');
-            let id = $(this).attr('id');
             let containerImg = $('#format');
             containerImg.css('backgroundImage', `url(${img[position]})`)
 
             if (id === 'f01' || id === 'f02' || id === 'f03') {
                 containerImg.addClass(`${id+'-width'}`)
+                if (id === 'f01') {
+                    let d = $('#blockDigital')
+                    d.toggle()
+                }
             }
             if (id === 'f04') {
                 containerImg.addClass(`${id+'-width'}`)
@@ -265,7 +285,11 @@ $(function () {
 
         } else {
             // Hacer algo si el checkbox ha sido deseleccionado
-            console.log("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+            if (id === 'f01') {
+                let d = $('#blockDigital')
+                d.toggle()
+            }
+            // console.log("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
         }
     });
 
@@ -275,17 +299,14 @@ $(function () {
         validateCheckbox();
     })
     $('#cli').on('click', function () {
-        let s11 = '<<<<<<<<<<<'; // 11 unidades
+        let date = '27-11-2018';
+        let year = date.split('-');
+        let s = year[2].split('');
+        let a = s[2] + s[3];
+        let f = parseInt(a) + 10
 
-        let birthday = $('#fecha_nacimiento').val();
-        let expiration = $('#expiracion').val();
-        let arrBirthday = birthday.split('-'); //arrBirthdayday
-        let arrExp = expiration.split('-'); //Expiraion
-        let yearBirthday = arrBirthday[0].split('');
-        let yearExp = arrExp[0].split('');
-
-        let ic2 = yearBirthday[2] + yearBirthday[3] + arrBirthday[1] + arrBirthday[2] + '6' + 'M' + yearExp[2] + yearExp[3] + arrExp[1] + arrExp[2] + '9NIC' + s11 + '8';
-        console.log(ic2)
+        let expirationDate = year[0] + '-' + year[1] + '-' + s[0] + s[1] + f;
+        console.log(expirationDate)
     })
 
 })
