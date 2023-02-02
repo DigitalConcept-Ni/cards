@@ -135,12 +135,16 @@ $(function () {
         let a1 = $('#a1').val();
         let a2 = $('#a2').val();
         let ntotal;
-        if (n2 === '') {
+        let arrn2 = n2.split(' ');
+
+        if (arrn2.length > 1) {
+            ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<<<<<<<';
+        } else if (n2 === '') {
             ntotal = a1 + '<' + a2 + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
         } else if (a2 === '') {
             ntotal = a1 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<<<<<<<';
         } else if (n2 === '' && a2 === '') {
-            ntotal = a1 + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
+            ntotal = a1 + '<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
         } else {
             ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<<<<<<<';
         }
@@ -299,14 +303,11 @@ $(function () {
         validateCheckbox();
     })
     $('#cli').on('click', function () {
-        let date = '27-11-2018';
-        let year = date.split('-');
-        let s = year[2].split('');
-        let a = s[2] + s[3];
-        let f = parseInt(a) + 10
+        // let str = 'DEL SOCORRO';
+        let str = 'SOCORRO';
 
-        let expirationDate = year[0] + '-' + year[1] + '-' + s[0] + s[1] + f;
-        console.log(expirationDate)
+        let arrS = str.split(' ');
+        console.log(arrS);
     })
 
 })
