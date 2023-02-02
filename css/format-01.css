@@ -8,6 +8,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
 
 
+#blockDigital{
+  display: none;
+}
+
 .f01-width{
   width: 450px;
 }
@@ -93,13 +97,6 @@
   font-size: 13px;
 }
 
-.f04-direccion3 {
-  position: absolute;
-  top: 424px;
-  left: 165px;
-  font-size: 12.26px;
-}
-
 .f01-municipio {
   position: absolute;
   top: 475px;
@@ -114,11 +111,18 @@
   font-size: 13px;
 }
 
-.f01-lugar_nacimiento {
+.f01-departamento2 {
   position: absolute;
   top: 505px;
   left: 27px;
   font-size: 13px;
+}
+
+.f01-lugar_nacimiento {
+  position: absolute;
+  top: 395Px;
+  left: 27px;
+  font-size: 13.5px;
 }
 
 /* STYELES FOR IMAGES */
