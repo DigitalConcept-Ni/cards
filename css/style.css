@@ -1,7 +1,7 @@
-@import url(css/format-01.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL PRIMER FORMATO*/
-@import url(css/format-02.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL SEGUNDO FORMATO*/
-@import url(css/format-03.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL TERCER FORMATO*/
-@import url(css/format-04.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL CUARTO FORMATO*/
+@import url(format-01.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL PRIMER FORMATO*/
+@import url(format-02.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL SEGUNDO FORMATO*/
+@import url(format-03.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL TERCER FORMATO*/
+@import url(format-04.css); /*IMPORTACION DE LA HOJA DE ESTILO DEL CUARTO FORMATO*/
 
 * {
   margin: 0;

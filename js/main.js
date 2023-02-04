@@ -130,14 +130,14 @@ $(function () {
 
         // ESPACIO PARA REALIZA EL IC3
 
-        let n1 = $('#n1').val();
-        let n2 = $('#n2').val();
-        let a1 = $('#a1').val();
-        let a2 = $('#a2').val();
+        let n1 = $('#n1').val().trim();
+        let n2 = $('#n2').val().trim();
+        let a1 = $('#a1').val().trim();
+        let a2 = $('#a2').val().trim();
         let ntotal;
         let arrn2 = n2.split(' ');
 
-        if (arrn2.length >= 2) {
+        if (arrn2.length <= 2) {
             ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<<<<<<<';
         } else if (arrn2.length >= 3) {
             ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<' + arrn2[2] + '<<<<<<<';
@@ -269,13 +269,30 @@ $(function () {
     }
 
     // Funcion para mostrar en el modal la vista previa del formato seleccionado o a hacer
+    var idAnterior = '';
     $('input[type="checkbox"]').on('change', function (e) {
 
         let id = $(this).attr('id');
+        let containerImg = $('#format');
         if ($(this).is(':checked')) {
             let position = $(this).attr('data-image');
-            let containerImg = $('#format');
             containerImg.css('backgroundImage', `url(${img[position]})`)
+
+            // fragmento para deseleccionar el formato que no ocuparemos y dejar el que si
+            if (idAnterior === id || idAnterior === '') {
+                // Si esta vacio o es igual al que el id indicado
+            } else {
+                console.log('Deseleccionar' + idAnterior)
+                $(`${'#'+idAnterior}`).prop('checked', false);
+                containerImg.removeClass(`${idAnterior+'-width'}`);
+                if (idAnterior === 'f04') {
+                    let direccion = $('#direccion3-block')
+                    direccion.toggle()
+                } else if (idAnterior === 'f01') {
+                    let d = $('#blockDigital')
+                    d.toggle()
+                }
+            }
 
             if (id === 'f01' || id === 'f02' || id === 'f03') {
                 containerImg.addClass(`${id+'-width'}`)
@@ -290,8 +307,6 @@ $(function () {
                 direccion.toggle()
 
             }
-
-
         } else {
             // Hacer algo si el checkbox ha sido deseleccionado
             if (id === 'f01') {
@@ -303,6 +318,8 @@ $(function () {
             }
             // console.log("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
         }
+        idAnterior = id
+
     });
 
 
@@ -310,12 +327,15 @@ $(function () {
     $('#visualize').on('click', function () {
         validateCheckbox();
     })
-    $('#cli').on('click', function () {
-        // let str = 'DEL SOCORRO';
-        let str = 'SOCORRO';
+    // $('#cli').on('click', function () {
+    //     let str = 'DEL SOCORRO  ';
+    //     let str = 'SOCORRO ';
+    //     let n1 = $('#n1').val().trim();
 
-        let arrS = str.split(' ');
-        console.log(arrS);
-    })
+
+    //     let arrS = str.split(' ');
+    //     let arrS = n1.trim();
+    //     console.log(arrS.length);
+    // })
 
 })
