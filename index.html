@@ -315,7 +315,13 @@
         function autoClick() {
             $("#download").click();
         }
+
+        function mayus(e) {
+            e.value = e.value.toUpperCase();
+        }
         $(document).ready(function () {
+
+            $('input[type="text"]').attr('onkeyup', ' mayus(this)')
 
             let refresh = $('#refresh')
             refresh.on('click', function () {
