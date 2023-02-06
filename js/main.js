@@ -131,24 +131,24 @@ $(function () {
         // ESPACIO PARA REALIZA EL IC3
 
         let n1 = $('#n1').val().trim();
-        let n2 = $('#n2').val().trim();
+        let n2 = $('#n2').val();
         let a1 = $('#a1').val().trim();
-        let a2 = $('#a2').val().trim();
+        let a2 = $('#a2').val();
         let ntotal;
         let arrn2 = n2.split(' ');
 
-        if (arrn2.length <= 2) {
-            ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<<<<<<<';
-        } else if (arrn2.length >= 3) {
+        if (arrn2.length === 2) {
+            ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<<<<<<<';
+        } else if (arrn2.length === 3) {
             ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<' + arrn2[2] + '<<<<<<<';
         } else if (n2 === '') {
-            ntotal = a1 + '<' + a2 + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
+            ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
         } else if (a2 === '') {
-            ntotal = a1 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<<<<<<<';
+            ntotal = a1 + '<<' + n1 + '<' + n2.trim() + '<<<<<<<<<<<<<<<<<<<<';
         } else if (n2 === '' && a2 === '') {
             ntotal = a1 + '<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
         } else {
-            ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + n2 + '<<<<<<<<<<<<<<<<<<<<';
+            ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<' + n2.trim() + '<<<<<<<<<<<<<<<<<<<<';
         }
         let ic3 = ntotal;
         let s = [ic1, ic2, ic3];
