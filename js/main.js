@@ -36,7 +36,7 @@ $(function () {
 
         if (data['formato'] === 'f01') {
             let imgDigital = $('#container-img-digital');
-            imgDigital.attr('src', `${data['urlPerson']}`).addClass(`${'img-digital-'+data['formato']}`);
+            imgDigital.attr('src', `${data['urlDigital']}`).addClass(`${'img-digital-'+data['formato']}`);
         }
         imgPerson.attr('src', `${data['urlPerson']}`).addClass(`${'img-person-'+data['formato']}`);
         imgSignature.attr('src', `${data['urlSignature']}`).addClass(`${'img-signature-'+data['formato']}`)
@@ -138,15 +138,23 @@ $(function () {
         let arrn2 = n2.split(' ');
 
         if (arrn2.length === 2) {
-            ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<<<<<<<';
+            if (a2 === '') {
+                ntotal = a1 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<<<<<<<';
+            } else {
+                ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<<<<<<<';
+            }
         } else if (arrn2.length === 3) {
-            ntotal = a1 + '<' + a2 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<' + arrn2[2] + '<<<<<<<';
-        } else if (n2 === '') {
-            ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
-        } else if (a2 === '') {
-            ntotal = a1 + '<<' + n1 + '<' + n2.trim() + '<<<<<<<<<<<<<<<<<<<<';
+            if (a2 === '') {
+                ntotal = a1 + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<' + arrn2[2] + '<<<<<<<';
+            } else {
+                ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<' + arrn2[0] + '<' + arrn2[1] + '<' + arrn2[2] + '<<<<<<<';
+            }
         } else if (n2 === '' && a2 === '') {
-            ntotal = a1 + '<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
+            ntotal = a1 + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
+        } else if (n2 === '' && a2 != '') {
+            ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<<<<<<<<<<<<<<<<<<<<';
+        } else if (a2 === '' && n2 != '') {
+            ntotal = a1 + '<<' + n1 + '<' + n2.trim() + '<<<<<<<<<<<<<<<<<<<<';
         } else {
             ntotal = a1 + '<' + a2.trim() + '<<' + n1 + '<' + n2.trim() + '<<<<<<<<<<<<<<<<<<<<';
         }
@@ -328,14 +336,13 @@ $(function () {
         validateCheckbox();
     })
     // $('#cli').on('click', function () {
-    //     let str = 'DEL SOCORRO  ';
-    //     let str = 'SOCORRO ';
-    //     let n1 = $('#n1').val().trim();
+    //     let s1 = 'DEL SOCORRO  ';
+    //     let s2 = 'SOCORRO ';
+    //     let n1 = $('#n1').val();
 
-
-    //     let arrS = str.split(' ');
-    //     let arrS = n1.trim();
-    //     console.log(arrS.length);
+    //     if (s1 === '') {
+    //         console.log('tiene caracteres')
+    //     }
     // })
 
 })

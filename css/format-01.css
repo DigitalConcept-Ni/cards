@@ -99,21 +99,21 @@
 
 .f01-municipio {
   position: absolute;
-  top: 475px;
+  top: 483px;
   left: 27px;
   font-size: 13px;
 }
 
 .f01-departamento {
   position: absolute;
-  top: 490px;
+  top: 498px;
   left: 27px;
   font-size: 13px;
 }
 
 .f01-departamento2 {
   position: absolute;
-  top: 505px;
+  top: 515px;
   left: 27px;
   font-size: 13px;
 }
@@ -149,6 +149,6 @@
   height: 145px;
   width: 110px;
   /* border: 1px solid red; */
-  bottom: 170px;
+  bottom: 171px;
   right: 60px;
 }
