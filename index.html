@@ -111,12 +111,12 @@
                 <!-- SEGUNDA FILA // CARA DELANTERA -->
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                         <div class="form-group">
                             <label for="fecha_nacimiento">Fecha Nacimiento</label>
                             <input id="fecha_nacimiento" type="text" class="form-control" maxlength="10">
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-3">
                         <div class="form-group">
@@ -191,7 +191,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-3" id="block-reposicion">
                         <div class="form-group">
                             <label for="reposicion">Reposicion: </label>
                             <input id="reposicion" type="text" class="form-control">
@@ -312,36 +312,18 @@
     <script src="js/main.js"></script>
 
     <script>
-        function autoClick() {
-            $("#download").click();
-        }
 
         function mayus(e) {
             e.value = e.value.toUpperCase();
         }
         $(document).ready(function () {
 
-            $('input[type="text"]').attr('onkeyup', ' mayus(this)')
+            // $('input[type="text"]').attr('onkeyup', ' mayus(this)')
 
-            let refresh = $('#refresh')
-            refresh.on('click', function () {
-                location.reload();
-            })
-
-            var element = $("#format");
-
-            $("#download").on('click', function () {
-                html2canvas(element, {
-                    allowTaint: true,
-                    onrendered: function (canvas) {
-                        var imageData = canvas.toDataURL("image/jpeg", '1.0');
-                        var newData = imageData.replace(/^data:image\/jpg/,
-                            "data:application/octet-stream");
-                        $("#download").attr("download", "image.jpg").attr("href", newData);
-                    }
-                });
-
-            });
+            // let refresh = $('#refresh')
+            // refresh.on('click', function () {
+            //     location.reload();
+            // })
         })
     </script>
 </body>
