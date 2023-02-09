@@ -13,13 +13,43 @@ let info = {
     municipio: '', // Municipio
     departamento: '', // Departamento
     lugar_nacimiento: '', // Lugar de Nacimiento
-    fecha_nacimiento: '', // Fecha de Nacimiento
+    // fecha_nacimiento: '', // Fecha de Nacimiento
     sexo: '', // Sexo
+}
+
+function autoClick() {
+    $("#download").click();
 }
 
 $(function () {
     let img = ['img/f1.jpeg', 'img/f2.jpeg', 'img/f3.jpeg', 'img/f4.jpg']
     let container = $('#format') // Selector del contenedor donde se pondra la informacion
+
+    $('input[type="text"]').attr('onkeyup', ' mayus(this)')
+
+    let refresh = $('#refresh')
+    refresh.on('click', function () {
+        location.reload();
+    })
+
+
+    // funcion para descargar la imagen
+    var element = $("#format");
+
+    $("#download").on('click', function () {
+        html2canvas(element, {
+            allowTaint: true,
+            onrendered: function (canvas) {
+                var imageData = canvas.toDataURL("image/jpeg", '1.0');
+                var newData = imageData.replace(/^data:image\/jpg/,
+                    "data:application/octet-stream");
+                $("#download").attr("download", "image.jpg").attr("href", newData);
+            }
+        });
+
+    });
+
+    // end funcion para descargar
 
     const alert = (title, message) => {
         Swal.fire({
@@ -27,6 +57,23 @@ $(function () {
             title: title,
             text: message,
         })
+    }
+
+    // funcion para agregar caracteres
+    const agregarCaracter = (cadena) => {
+        let cadenaConCaracteres = "";
+        let pasos = 2;
+        let caracter = '-'
+        const longitudCadena = cadena.length;
+        for (let i = 0; i < longitudCadena; i += pasos) {
+
+            if (i + pasos < longitudCadena) {
+                cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
+            } else {
+                cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena);
+            }
+        }
+        return cadenaConCaracteres;
     }
 
     //Genera las previsualizaciones de las imagenes de la persona y la firma, donde se encuentra la imagen de la cedula
@@ -102,7 +149,7 @@ $(function () {
     }
 
     // Funcion para hacer el consilado final parte tracera con los caracteres
-    const consolidated = (checkId, expirationDate) => {
+    const consolidated = (checkId, expirationDate, fecha_nacimiento) => {
         let s11 = '<<<<<<<<<<<'; // 11 unidades
         let s15 = '<<<<<<<<<<<<<<<'; // 15 unidades
         let sp = '';
@@ -119,8 +166,7 @@ $(function () {
 
         // Espacio para el IC2
         let sex = $('#sexo').val();
-        let birthday = $('#fecha_nacimiento').val();
-        let arrBirthday = birthday.split('-'); //arrBirthdayday
+        let arrBirthday = fecha_nacimiento.split('-'); //arrBirthdayday
         let arrExp = expirationDate.split('-'); //Expiraion
         let yearBirthday = arrBirthday[2].split('');
         let yearExp = arrExp[2].split('');
@@ -189,11 +235,18 @@ $(function () {
         let nComplete = '';
         let aComplete = '';
         let expirationDate;
+        let fecha_nacimiento = '';
 
         $.each(info, v => {
             var data = $(`#${v}`);
 
-            if (v === 'departamento') {
+            if (v === 'cedula') {
+                let cardId = data.val();
+                fecha_nacimiento = agregarCaracter(cardId.split('-')[1]);
+                sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
+                sp += `<span class="${checkId + '-' + 'fecha_nacimiento'} ced">${fecha_nacimiento}</span>`;
+
+            } else if (v === 'departamento') {
                 if (checkId === 'f01') {
                     sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
                     sp += `<span class="${checkId + '-' + v+'2'} ced">${data.val()}</span>`;
@@ -244,7 +297,7 @@ $(function () {
             urlsImages(checkId);
 
         } else {
-            consolidated(checkId, expirationDate);
+            consolidated(checkId, expirationDate, fecha_nacimiento);
         }
     }
 
@@ -290,14 +343,16 @@ $(function () {
             if (idAnterior === id || idAnterior === '') {
                 // Si esta vacio o es igual al que el id indicado
             } else {
-                console.log('Deseleccionar' + idAnterior)
+                // console.log('Deseleccionar' + idAnterior)
                 $(`${'#'+idAnterior}`).prop('checked', false);
                 containerImg.removeClass(`${idAnterior+'-width'}`);
                 if (idAnterior === 'f04') {
                     let direccion = $('#direccion3-block')
                     direccion.toggle()
                 } else if (idAnterior === 'f01') {
-                    let d = $('#blockDigital')
+                    let d = $('#blockDigital');
+                    let br = $('#block-reposicion')
+                    br.toggle()
                     d.toggle()
                 }
             }
@@ -306,6 +361,8 @@ $(function () {
                 containerImg.addClass(`${id+'-width'}`)
                 if (id === 'f01') {
                     let d = $('#blockDigital')
+                    let br = $('#block-reposicion')
+                    br.toggle()
                     d.toggle()
                 }
             }
@@ -316,10 +373,15 @@ $(function () {
 
             }
         } else {
+            containerImg.css('backgroundImage', '')
+
             // Hacer algo si el checkbox ha sido deseleccionado
             if (id === 'f01') {
-                let d = $('#blockDigital')
-                d.toggle()
+                let d = $('#blockDigital');
+                let br = $('#block-reposicion');
+                br.toggle();
+                d.toggle();
+
             } else if (id === 'f04') {
                 let direccion = $('#direccion3-block')
                 direccion.toggle()
@@ -335,14 +397,14 @@ $(function () {
     $('#visualize').on('click', function () {
         validateCheckbox();
     })
-    // $('#cli').on('click', function () {
-    //     let s1 = 'DEL SOCORRO  ';
-    //     let s2 = 'SOCORRO ';
-    //     let n1 = $('#n1').val();
+    $('#cli').on('click', function () {
+        let s1 = 'DEL SOCORRO  ';
+        let s2 = '001-060897-0034S';
 
-    //     if (s1 === '') {
-    //         console.log('tiene caracteres')
-    //     }
-    // })
+        let a = s2.split('-')[1]
+
+        console.log(agregarCaracter(a))
+
+    })
 
 })
