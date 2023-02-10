@@ -32,7 +32,7 @@
 
 <body onload="autoClick()">
 
-    <!-- <a class="btn btn-success" id="cli">Click me</a> -->
+    <a class="btn btn-success" id="cli">Click me</a>
 
     <!-- CONTENEDOR DEL FORUMLARIO DE DATOS -->
     <div class="container">
@@ -46,24 +46,30 @@
 
                 <!-- CUARTA FILA CHEBOX DE SELECCION DE FORMATOS -->
 
-                <div class="row">
-                    <div class="form-group">
-                        <label for="f01">Formato 1</label>
-                        <input id="f01" data-image="0" type="checkbox">
+                <div class="row center">
+
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="f01">Formato 1</label>
+                            <input id="f01" data-image="0" type="checkbox">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="f02">Formato 2</label>
+                            <input id="f02" data-image="1" type="checkbox">
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="f02">Formato 2</label>
-                        <input id="f02" data-image="1" type="checkbox">
-                    </div>
-                    <div class="form-group">
-                        <label for="f03">Formato 3</label>
-                        <input id="f03" data-image="2" type="checkbox">
-                    </div>
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label for="f03">Formato 3</label>
+                            <input id="f03" data-image="2" type="checkbox">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="f04">Formato 4</label>
-                        <input id="f04" data-image="3" type="checkbox">
+                        <div class="form-group">
+                            <label for="f04">Formato 4</label>
+                            <input id="f04" data-image="3" type="checkbox">
+                        </div>
                     </div>
                 </div>
 
@@ -231,13 +237,28 @@
 
             <!-- /.card-body -->
             <div class="card-footer">
-                <a id="visualize" class="btn btn-success">Visualizar</a>
-                <a id="download" class="btn btn-warning" download>Generar</a>
-                <a class="btn btn-primary" id="refresh">Limpiar</a>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="margin: 10px 0;">
+                            <a id="visualize" class="btn btn-success">Visualizar</a>
+                            <a id="download" class="btn btn-warning" download>Generar</a>
+                            <a class="btn btn-primary" id="refresh">Limpiar</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" style="display: none;">
+                        <a class="btn btn-secondary">Reparar</a>
+                        <div class="form-group" style="margin: 10px 0;">
+                            <select class="form-control" name="select-error" id="select-error"></select>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <!-- /.card-footer-->
     </div>
+    <!-- /.card-footer-->
 
     <!-- TERMINA CONTENEDOR DEL FORUMLARIO DE DATOS -->
 
@@ -310,21 +331,12 @@
     </script>
 
     <script src="js/main.js"></script>
+    <script src="js/reparar.js"></script>
 
     <script>
-
         function mayus(e) {
             e.value = e.value.toUpperCase();
         }
-        $(document).ready(function () {
-
-            // $('input[type="text"]').attr('onkeyup', ' mayus(this)')
-
-            // let refresh = $('#refresh')
-            // refresh.on('click', function () {
-            //     location.reload();
-            // })
-        })
     </script>
 </body>
 
