@@ -70,7 +70,12 @@ $(function () {
             if (i + pasos < longitudCadena) {
                 cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
             } else {
-                cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena);
+                let ultimosCaracteres = cadena.substring(i, longitudCadena);
+                if (parseInt(ultimosCaracteres) <= 19) {
+                    cadenaConCaracteres += '20' + cadena.substring(i, longitudCadena)
+                } else if (parseInt(ultimosCaracteres) >= 20) {
+                    cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena)
+                }
             }
         }
         return cadenaConCaracteres;
@@ -166,6 +171,8 @@ $(function () {
 
         // Espacio para el IC2
         let sex = $('#sexo').val();
+        // let fecha = $('#fecha_nacimiento').val()
+        // let arrBirthday = fecha.split('-'); //arrBirthdayday
         let arrBirthday = fecha_nacimiento.split('-'); //arrBirthdayday
         let arrExp = expirationDate.split('-'); //Expiraion
         let yearBirthday = arrBirthday[2].split('');
@@ -397,14 +404,35 @@ $(function () {
     $('#visualize').on('click', function () {
         validateCheckbox();
     })
-    $('#cli').on('click', function () {
-        let s1 = 'DEL SOCORRO  ';
-        let s2 = '001-060897-0034S';
+    // $('#cli').on('click', function () {
+    //     let s1 = 'DEL SOCORRO  ';
+    //     let s2 = '001-060804-0034S';
+    //     let cadena = s2.split('-')[1]
 
-        let a = s2.split('-')[1]
+    //     // let a = s2.split('-')[1]
 
-        console.log(agregarCaracter(a))
+    //     let cadenaConCaracteres = "";
+    //     let pasos = 2;
+    //     let caracter = '-'
+    //     const longitudCadena = cadena.length;
+    //     for (let i = 0; i < longitudCadena; i += pasos) {
 
-    })
+    //         if (i + pasos < longitudCadena) {
+    //             cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
+    //         } else {
+    //             let ultimosCaracteres = cadena.substring(i, longitudCadena);
+    //             if (parseInt(ultimosCaracteres) <= 19) {
+    //                 console.log(cadenaConCaracteres += '20' + cadena.substring(i, longitudCadena))
+    //             }
+    //             if (parseInt(ultimosCaracteres) >= 20) {
+    //                 console.log(cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena))
+    //             }
+    //             // console.log(cadena.substring(i, longitudCadena))
+    //             // cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena);
+    //         }
+    //     }
+    //     console.log(cadenaConCaracteres)
+
+    // })
 
 })
