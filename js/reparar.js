@@ -35,9 +35,11 @@ $(function () {
             // let inputValue = 'Rocargo';
             let newValue = '';
 
+
             if (selectId === 'n1') {
                 let arrSpanValue = spanValue.text().split(' ');
-                if (arrSpanValue.length === 2) {
+                console.log(arrSpanValue.length)
+                if (arrSpanValue.length >= 2) {
                     newValue = inputValue + ' ' + arrSpanValue[1];
                     spanValue.text(newValue)
                 } else {

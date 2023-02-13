@@ -102,7 +102,7 @@ const urlsImages = (formato) => {
     let signature = $('#imgSignature')[0].files;
 
     if (formato === 'f01') {
-        let digital = $('#imgDigital`')[0].files;
+        let digital = $('#imgDigital')[0].files;
 
         if (person.length === 0 && signature.length === 0 && digital.length === 0) {
             alertMessage('Error de seleccion', 'Seleccione las imagenes correspondientes')
