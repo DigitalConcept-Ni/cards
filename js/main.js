@@ -155,17 +155,25 @@ const urlsImages = (formato) => {
 
 }
 
-// Funcion para hacer el consilado final parte tracera con los caracteres
-
+// funcion de apoyo para extraer la fecha de expiracion a partir de emision
 const expiration = (dt) => {
     let arrDate = dt.split('-');
     let year = arrDate[2].split('');
     let a = year[2] + year[3];
-    let f = parseInt(a) + 10 //Fecha final pero sumando 10 anios
+    var f = parseInt(a) + 10 //Fecha final pero sumando 10 anios
+    let expirationDate;
+    var g = f.toString()
 
-    let expirationDate = arrDate[0] + '-' + arrDate[1] + '-' + year[0] + year[1] + f;
+    if (f >= 100) {
+        expirationDate = arrDate[0] + '-' + arrDate[1] + '-' + '20' + g.substring(1,3);
+
+    } else {
+        expirationDate = arrDate[0] + '-' + arrDate[1] + '-' + year[0] + year[1] + f;
+    }
     return expirationDate;
 }
+
+// Funcion para hacer el consilado final parte tracera con los caracteres
 
 const consolidated = (data) => {
     let s11 = '<<<<<<<<<<<'; // 11 unidades
