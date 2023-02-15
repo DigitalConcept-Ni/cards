@@ -38,6 +38,8 @@ var element = $("#format");
 $("#download").on('click', function () {
     html2canvas(element, {
         allowTaint: true,
+        imageTimeout: 0,
+        removeContainer: true,
         onrendered: function (canvas) {
             var imageData = canvas.toDataURL("image/jpeg", '1.0');
             var newData = imageData.replace(/^data:image\/jpg/,
@@ -71,9 +73,9 @@ const agregarCaracter = (cadena) => {
             cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
         } else {
             let ultimosCaracteres = cadena.substring(i, longitudCadena);
-            if (parseInt(ultimosCaracteres) <= 19) {
+            if (parseInt(ultimosCaracteres) <= 08) {
                 cadenaConCaracteres += '20' + cadena.substring(i, longitudCadena)
-            } else if (parseInt(ultimosCaracteres) >= 20) {
+            } else if (parseInt(ultimosCaracteres) >= 09) {
                 cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena)
             }
         }
@@ -177,6 +179,8 @@ const consolidated = (data) => {
     //Espacio para el IC1
     let ced = $('#cedula').val();
     let cedId = ced.split('-');
+    let m = ['ic1', 'ic2', 'ic3']; // clases de los contenedores en donde se ponde el consolidado
+
 
     let ic1 = 'IDNIC' + '<' + cedId[0] + cedId[2] + '8' + s15;
 
@@ -187,6 +191,12 @@ const consolidated = (data) => {
     let yearBirthday;
     let yearExp
     if (data['fix'] === true) {
+        // bucle para limpiar los span donde se colocara los nuevos span
+        for (a = 0; a <= m.length - 1; a++) {
+            var containerSpan = $(`#${m[a]}`)
+            containerSpan.empty();
+        }
+
         let emi = $('#emision').val();
         let exp = expiration(emi);
         let birt = agregarCaracter(cedId[1]); //arrBirthdayday
@@ -239,7 +249,6 @@ const consolidated = (data) => {
     }
     let ic3 = ntotal;
     let s = [ic1, ic2, ic3];
-    let m = ['ic1', 'ic2', 'ic3'];
 
     for (a = 0; a <= m.length - 1; a++) {
         var containerSpan = $(`#${m[a]}`)
@@ -287,16 +296,20 @@ const recollect = (checkId) => {
             } else {
                 sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
             }
-        } else if (v === 'n1' || v === 'n2') {
+        } else if (v === 'n1') {
             if (checkId === 'f04' || checkId === 'f03' || checkId === 'f02') {
                 nComplete += data.val();
-                nComplete += ' ';
-                if (v === 'n2') {
-                    sp += `<span class="${checkId + '-n1'} ced">${nComplete}</span>`;
-                }
             } else {
-                sp += `<span class="${checkId + '-'+v} ced">${data.val()}</span>`;
+                sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
+            }
+        } else if (v === 'n2') {
+            if (checkId === 'f04' || checkId === 'f03' || checkId === 'f02') {
+                nComplete += ' ';
+                nComplete += data.val();
+                sp += `<span class="${checkId + '-n1'} ced">${nComplete}</span>`;
 
+            } else {
+                sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
             }
         } else if (v === 'a1' || v === 'a2') {
             if (checkId === 'f04') {
