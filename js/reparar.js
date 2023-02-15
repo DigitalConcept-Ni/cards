@@ -12,7 +12,7 @@ $(function () {
 
     var selectId = '';
     var checkId = 'None';
-    // var checkId = 'f04';
+    // var checkId = 'f02';
     $('select[name="select-error"]').on('change', function (e) {
         selectId = $(this).val();
         let check = $('input[type="checkbox"]');
@@ -31,67 +31,72 @@ $(function () {
         } else {
             let inputValue = $(`${'#'+selectId}`).val(); // Select the entry value
             var spanValue = $(`span.${checkId + '-' + selectId}`); //Select the entry where the new information will be placed
-            // input.empty()
-            // let inputValue = 'Rocargo';
             let newValue = '';
 
-
-            if (selectId === 'n1') {
-                let arrSpanValue = spanValue.text().split(' ');
-                console.log(arrSpanValue.length)
-                if (arrSpanValue.length >= 2) {
-                    newValue = inputValue + ' ' + arrSpanValue[1];
-                    spanValue.text(newValue)
-                } else {
-                    newValue = inputValue;
-                    spanValue.text(newValue)
-                }
-            } else if (selectId === 'n2') {
+            if (selectId === 'n1' || selectId === 'n2') {
+                let n1 = $('#a1').val().trim();
+                let n2 = $('#a2').val().trim();
                 if (checkId === 'f02' || checkId === 'f03' || checkId === 'f04') {
                     var spanValue = $(`span.${checkId + '-n1'}`); //Select the entry where the new information will be placed
-                    let arrSpanValue = spanValue.text().split(' ');
-                    if (arrSpanValue.length === 2) {
-                        newValue = arrSpanValue[0] + ' ' + inputValue;
-                        spanValue.text(newValue)
+                    newValue = n1 + ' ' + n2;
+                    spanValue.text(newValue)
+
+                    data = {
+                        'checkId': checkId,
+                        'fix': true
                     }
+                    consolidated(data);
                 } else {
                     newValue = inputValue;
                     spanValue.text(newValue)
                 }
-            } else if (selectId === 'a1') {
-                let arrSpanValue = spanValue.text().split(' ');
-                if (arrSpanValue.length === 2) {
-                    newValue = inputValue + ' ' + arrSpanValue[1];
-                    spanValue.text(newValue)
-                } else {
-                    newValue = inputValue;
-                    spanValue.text(newValue)
-                }
-            } else if (selectId === 'a2') {
-                if (checkId === 'f02' || checkId === 'f03' || checkId === 'f04') {
+            } else if (selectId === 'a1' || selectId === 'a2') {
+                let a1 = $('#a1').val().trim();
+                let a2 = $('#a2').val().trim();
+                if (checkId === 'f04') {
                     var spanValue = $(`span.${checkId + '-a1'}`); //Select the entry where the new information will be placed
-                    let arrSpanValue = spanValue.text().split(' ');
-                    if (arrSpanValue.length === 2) {
-                        newValue = arrSpanValue[0] + ' ' + inputValue;
-                        spanValue.text(newValue)
+                    newValue = a1 + ' ' + a2;
+                    spanValue.text(newValue)
+
+                    data = {
+                        'checkId': checkId,
+                        'fix': true
                     }
+                    consolidated(data);
                 } else {
                     newValue = inputValue;
                     spanValue.text(newValue)
                 }
             } else if (selectId === 'cedula' || selectId === 'emision') {
-                let m = ['ic1', 'ic2', 'ic3'];
-                let expirationDate = $('#expiracion');
-                for (a = 0; a <= m.length - 1; a++) {
-                    var containerSpan = $(`#${m[a]}`)
-                    containerSpan.empty();
+                if (checkId === 'f01') {
+                    let emi = $('#emision').val();
+                    let exp = expiration(emi);
+                    $(`span.${checkId}-emision`).text(emi)
+                    $(`span.${checkId}-expiracion`).text(exp)
+                } else {
+                    let m = ['ic1', 'ic2', 'ic3'];
+                    for (a = 0; a <= m.length - 1; a++) {
+                        var containerSpan = $(`#${m[a]}`)
+                        containerSpan.empty();
+                    }
+                    data = {
+                        'checkId': checkId,
+                        'fix': true
+                    }
+                    consolidated(data);
                 }
-                data = {
-                    'checkId': checkId,
-                    'expirationDate': expirationDate,
-                    'fix': true
+
+            } else if (selectId === 'departamento') {
+                if (checkId === 'f01') {
+                    let departamento = $(`#${selectId}`).val().trim();
+                    let spanDepartamento = $(`span.${checkId + '-' + selectId}`);
+                    let spanDepartamento2 = $(`span.${checkId + '-departamento2'}`);
+                    spanDepartamento.text(departamento)
+                    spanDepartamento2.text(departamento)
+                } else {
+                    newValue = inputValue;
+                    spanValue.text(newValue)
                 }
-                consolidated(data);
             } else {
                 newValue = inputValue;
                 spanValue.text(newValue)
