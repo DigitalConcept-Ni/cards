@@ -34,8 +34,8 @@ $(function () {
             let newValue = '';
 
             if (selectId === 'n1' || selectId === 'n2') {
-                let n1 = $('#a1').val().trim();
-                let n2 = $('#a2').val().trim();
+                let n1 = $('#n1').val().trim();
+                let n2 = $('#n2').val().trim();
                 if (checkId === 'f02' || checkId === 'f03' || checkId === 'f04') {
                     var spanValue = $(`span.${checkId + '-n1'}`); //Select the entry where the new information will be placed
                     newValue = n1 + ' ' + n2;
@@ -66,26 +66,41 @@ $(function () {
                 } else {
                     newValue = inputValue;
                     spanValue.text(newValue)
+                    if (checkId === 'f02' || checkId === 'f03') {
+                        data = {
+                            'checkId': checkId,
+                            'fix': true
+                        }
+                        consolidated(data);
+                    }
                 }
-            } else if (selectId === 'cedula' || selectId === 'emision') {
+            } else if (selectId === 'emision') {
                 if (checkId === 'f01') {
                     let emi = $('#emision').val();
                     let exp = expiration(emi);
                     $(`span.${checkId}-emision`).text(emi)
                     $(`span.${checkId}-expiracion`).text(exp)
                 } else {
-                    let m = ['ic1', 'ic2', 'ic3'];
-                    for (a = 0; a <= m.length - 1; a++) {
-                        var containerSpan = $(`#${m[a]}`)
-                        containerSpan.empty();
-                    }
                     data = {
+                        'selectId': selectId,
                         'checkId': checkId,
                         'fix': true
                     }
                     consolidated(data);
                 }
 
+            } else if (selectId === 'cedula') {
+                if (checkId === 'f01') {
+                    newValue = inputValue;
+                    spanValue.text(newValue)
+                } else {
+                    data = {
+                        'selectId': selectId,
+                        'checkId': checkId,
+                        'fix': true
+                    }
+                    consolidated(data);
+                }
             } else if (selectId === 'departamento') {
                 if (checkId === 'f01') {
                     let departamento = $(`#${selectId}`).val().trim();

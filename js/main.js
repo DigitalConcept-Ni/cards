@@ -17,10 +17,6 @@ let info = {
     sexo: '', // Sexo
 }
 
-function autoClick() {
-    $("#download").click();
-}
-
 let img = ['img/f1.jpeg', 'img/f2.jpeg', 'img/f3.jpeg', 'img/f4.jpg']
 let container = $('#format') // Selector del contenedor donde se pondra la informacion
 
@@ -33,22 +29,44 @@ refresh.on('click', function () {
 
 
 // funcion para descargar la imagen
+
+function autoClick() {
+    $("#download").click();
+}
 var element = $("#format");
 
-$("#download").on('click', function () {
+// $("#download").on('click', function () {
+//     let imageName = $('#n1').val()
+
+//     html2canvas(element, {
+//         allowTaint: true,
+//         imageTimeout: 0,
+//         removeContainer: true,
+//         onrendered: function (canvas) {
+//             var imageData = canvas.toDataURL(`${imageName}/jpg`, '1.0');
+//             var newData = imageData.replace(/^data:image\/jpg/,
+//                 "data:application/octet-stream");
+//             $("#download").attr("download", `${imageName}/jpg`).attr("href", newData);
+//         }
+//     });
+
+// });
+
+const donwloadImage = () => {
+    let imageName = $('#n1').val()
+
     html2canvas(element, {
         allowTaint: true,
         imageTimeout: 0,
         removeContainer: true,
         onrendered: function (canvas) {
-            var imageData = canvas.toDataURL("image/jpeg", '1.0');
+            var imageData = canvas.toDataURL('image/jpg', '1.0');
             var newData = imageData.replace(/^data:image\/jpg/,
                 "data:application/octet-stream");
-            $("#download").attr("download", "image.jpg").attr("href", newData);
+            $("#download").attr("download", `${imageName}.jpg`).attr("href", newData);
         }
     });
-
-});
+}
 
 
 // end funcion para descargar
@@ -165,7 +183,7 @@ const expiration = (dt) => {
     var g = f.toString()
 
     if (f >= 100) {
-        expirationDate = arrDate[0] + '-' + arrDate[1] + '-' + '20' + g.substring(1,3);
+        expirationDate = arrDate[0] + '-' + arrDate[1] + '-' + '20' + g.substring(1, 3);
 
     } else {
         expirationDate = arrDate[0] + '-' + arrDate[1] + '-' + year[0] + year[1] + f;
@@ -197,25 +215,32 @@ const consolidated = (data) => {
     let arrBirthday;
     let arrExp;
     let yearBirthday;
-    let yearExp
+    let yearExp;
+
+    let birt = agregarCaracter(cedId[1]); //arrBirthdayday
+    arrBirthday = birt.split('-'); //arrBirthdayday
+    yearBirthday = arrBirthday[2].split('');
+
+    let emi = $('#emision').val();
+    let exp = expiration(emi);
+    arrExp = exp.split('-');
+    yearExp = arrExp[2].split('');
     if (data['fix'] === true) {
-        // bucle para limpiar los span donde se colocara los nuevos span
+        // bloque para borrar los span de IC
+        let m = ['ic1', 'ic2', 'ic3'];
         for (a = 0; a <= m.length - 1; a++) {
             var containerSpan = $(`#${m[a]}`)
             containerSpan.empty();
         }
 
-        let emi = $('#emision').val();
-        let exp = expiration(emi);
-        let birt = agregarCaracter(cedId[1]); //arrBirthdayday
-        arrBirthday = birt.split('-'); //arrBirthdayday
-        arrExp = exp.split('-');
-        yearBirthday = arrBirthday[2].split('');
-        yearExp = arrExp[2].split('');
-        $(`span.${data['checkId'] + '-cedula'}`).text(ced)
-        $(`span.${data['checkId'] + '-fecha_nacimiento'}`).text(birt)
-        $(`span.${data['checkId'] + '-emision'}`).text(emi)
-        $(`span.${data['checkId'] + '-expiracion'}`).text(exp)
+        if (data['selectId'] === 'cedula') {
+            $(`span.${data['checkId'] + '-cedula'}`).text(ced)
+            $(`span.${data['checkId'] + '-fecha_nacimiento'}`).text(birt)
+
+        } else if (data['selectId'] === 'emision') {
+            $(`span.${data['checkId'] + '-emision'}`).text(emi);
+            $(`span.${data['checkId'] + '-expiracion'}`).text(exp);
+        }
     } else if (data['fix'] === false) {
         arrBirthday = data['fecha_nacimiento'].split('-');
         arrExp = data['expirationDate'].split('-'); //Expiraion
@@ -277,6 +302,8 @@ const consolidated = (data) => {
     if (data['fix'] === false) {
         urlsImages(data['checkId']);
     }
+
+    donwloadImage();
 }
 
 // Funcion para recolectar la informacion ingresada en los inputs
@@ -452,32 +479,8 @@ $('#visualize').on('click', function () {
     validateCheckbox();
 })
 // $('#cli').on('click', function () {
-//     let s1 = 'DEL SOCORRO  ';
-//     let s2 = '001-060804-0034S';
-//     let cadena = s2.split('-')[1]
-
-//     // let a = s2.split('-')[1]
-
-//     let cadenaConCaracteres = "";
-//     let pasos = 2;
-//     let caracter = '-'
-//     const longitudCadena = cadena.length;
-//     for (let i = 0; i < longitudCadena; i += pasos) {
-
-//         if (i + pasos < longitudCadena) {
-//             cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
-//         } else {
-//             let ultimosCaracteres = cadena.substring(i, longitudCadena);
-//             if (parseInt(ultimosCaracteres) <= 19) {
-//                 console.log(cadenaConCaracteres += '20' + cadena.substring(i, longitudCadena))
-//             }
-//             if (parseInt(ultimosCaracteres) >= 20) {
-//                 console.log(cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena))
-//             }
-//             // console.log(cadena.substring(i, longitudCadena))
-//             // cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena);
-//         }
-//     }
-//     console.log(cadenaConCaracteres)
+//     let person = $('#imgPerson')[0].files;
+//     // let signature = $('#imgSignature')[0].files;
+//     let urlPerson = URL.createObjectURL(person[0]);
 
 // })
