@@ -371,6 +371,7 @@ const recollect = (checkId) => {
     container.append(sp);
     if (checkId === 'f01') {
         urlsImages(checkId);
+        donwloadImage();
     } else {
         data = {
             'checkId': checkId,
