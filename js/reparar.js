@@ -91,6 +91,10 @@ $(function () {
 
             } else if (selectId === 'cedula') {
                 if (checkId === 'f01') {
+                    let ced = $('#cedula').val()
+                    let cedArry = ced.split('-')
+                    let fecha_nacimiento = agregarCaracter(cedArry[1])
+                    $(`span.${checkId}-fecha_nacimiento`).text(fecha_nacimiento)
                     newValue = inputValue;
                     spanValue.text(newValue)
                 } else {
