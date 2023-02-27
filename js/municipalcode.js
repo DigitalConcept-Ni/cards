@@ -20,7 +20,7 @@ let municipalIdCoding = {
 
 $(function () {
     $('#municipio').blur(function (e) {
-        selectValue = $(this).val();
+        let selectValue = $('#municipio').val();
         let depart = 'no encontrado';
         let muni;
         let inputDepartament = $('#departamento')
@@ -45,5 +45,6 @@ $(function () {
         } catch (error) {
             alertMessage('Error encontrado', error);
         }
+
     });
 })
