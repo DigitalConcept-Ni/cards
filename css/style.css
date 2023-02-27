@@ -9,6 +9,19 @@
   box-sizing: border-box;
 }
 
+.span-reg{
+  position: absolute;
+  height: 15px;
+  width: 45px;
+  top: 455px;
+  right: 61px;
+  background-color: #D7E9F5;
+  font-size: 8px;
+  font-weight: 700;
+  /* background-color: red; */
+  /* border: 2px red solid; */
+}
+
 input {
   text-transform: uppercase;
 }
@@ -27,7 +40,7 @@ input {
   height: 700px;
   /* width: 414px; ANCHO PARA EL FORMATO 04 */
   /*width: 450px; ANCHO PARA EL FORMATO 02*/
-  /* background-image: url("img/f3.jpeg"); */
+  /* background-image: url("/img/f2.jpeg"); */
   background-repeat: no-repeat;
   background-color: white;
   background-position: center;
