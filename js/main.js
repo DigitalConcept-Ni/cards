@@ -477,8 +477,7 @@ $('input[type="checkbox"]').on('change', function (e) {
 
 // BTN PARA VISUALIZAR LA INFORMACION INSERTADA
 $('#visualize').on('click', function () {
-    searchDepartament();
-    // validateCheckbox();
+    validateCheckbox();
 })
 // $('#cli').on('click', function () {
 //     let person = $('#imgPerson')[0].files;
