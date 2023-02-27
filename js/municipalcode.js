@@ -19,34 +19,31 @@ let municipalIdCoding = {
 }
 
 $(function () {
-    let select = $('select[name="selectMunicipio"]');
-    let option = '<option value="">Seleccione Municipio</option>';
-    var selectValue = '';
-
-    $.each(municipalIdCoding, function (departamento, municipio) {
-        $.each(municipio, function (k, m) {
-            option += '<option value="' + m + '">' + m + '</option>';
-        })
-    });
-    select.html(option);
-
-    $('select[name="selectMunicipio"]').on('change', function (e) {
+    $('#municipio').blur(function (e) {
         selectValue = $(this).val();
-        let depart;
+        let depart = 'no encontrado';
         let muni;
         let inputDepartament = $('#departamento')
 
-        if (selectValue === '') {
-            alertMessage('Error de seleccion', 'Seleccione un Municipio');
-        } else {
-            $.each(municipalIdCoding, function (departament) {
-                var muniIndex = municipalIdCoding[departament].indexOf(selectValue);
-                if (muniIndex !== -1) {
-                    depart = departament;
-                    muni = municipalIdCoding[departament][muniIndex]
+        try {
+            if (selectValue === '') {
+                alertMessage('Error de seleccion', 'Seleccione un Municipio');
+            } else {
+                $.each(municipalIdCoding, function (departament) {
+                    var muniIndex = municipalIdCoding[departament].indexOf(selectValue);
+                    if (muniIndex !== -1) {
+                        depart = departament;
+                        muni = municipalIdCoding[departament][muniIndex];
+                    }
+                });
+                if (depart !== 'no encontrado') {
+                    inputDepartament.val(depart);
+                } else {
+                    alertMessage('Error', 'No se encontro lo escrito, porfavor verifique')
                 };
-            });
-            inputDepartament.val(depart);
-        };
+            };
+        } catch (error) {
+            alertMessage('Error encontrado', error);
+        }
     });
 })
