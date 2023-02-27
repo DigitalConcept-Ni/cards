@@ -360,9 +360,6 @@ const recollect = (checkId) => {
             expirationDate = expiration(data.val());
             sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
             sp += `<span class="${checkId + '-expiracion'} ced">${expirationDate}</span>`;
-        } else if (v === 'municipio') {
-            let muni = $('#selectMunicipio').val();
-            sp += `<span class="${checkId + '-' + v} ced">${muni}</span>`;
         } else {
             sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
         }
