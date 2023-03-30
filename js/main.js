@@ -293,10 +293,10 @@ const consolidated = (data) => {
 
     if (data['checkId'] === 'f02' || data['checkId'] === 'f03') {
         let code = randomCode();
-        sp += `<span class="span-reg">AD${code}</span>`;
+        sp += `<span class="span-reg ced">AD${code}</span>`;
     } else if (data['checkId'] === 'f04') {
         let code = randomCode();
-        sp += `<span class="span-reg4">AH${code}</span>`;
+        sp += `<span class="span-reg4 ced">AH${code}</span>`;
     }
 
     container.append(sp)
