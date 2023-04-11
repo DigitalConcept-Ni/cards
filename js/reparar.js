@@ -1,9 +1,34 @@
+const imageRepair = (optionName, checkId) => {
+
+    if (optionName === 'imgPerson') {
+        let person = $('#imgPerson')[0].files;
+        let urlPerson = URL.createObjectURL(person[0]);
+        let containerPerson = $('#container-img-person');
+        containerPerson.attr('src', urlPerson).addClass('img-person-' + checkId);
+    }
+
+    if (optionName === 'imgSignature') {
+        let signature = $('#imgSignature')[0].files;
+        let urlSignature = URL.createObjectURL(signature[0]);
+        let containerSignature = $('#container-img-signature');
+        containerSignature.attr('src', urlSignature).addClass('img-signature-' + checkId)
+    }
+
+    if (optionName === 'imgDigital') {
+        let digital = $('#imgDigital')[0].files;
+        let urlDigital = URL.createObjectURL(digital[0])
+        let containerDigital = $('#container-img-digital');
+        containerDigital.attr('src', urlDigital).addClass('img-digital-' + checkId);
+    }
+}
+
 $(function () {
 
     let select = $('select[name="select-error"]');
     let option = '<option value="">Seleccione donde esta el error</option>';
-    // option += '<option value="container-img-person">Imagen persona</option>';
-    // option += '<option value="container-img-signature">Imagen firma</option>';
+    option += '<option value="imgPerson">Imagen Persona</option>';
+    option += '<option value="imgSignature">Imagen Firma</option>';
+    option += '<option value="imgDigital">Imagen Huella</option>';
 
     $.each(info, function (key) {
         option += '<option value="' + key + '">' + key + '</option>';
@@ -25,6 +50,10 @@ $(function () {
     })
 
     $('#fix').on('click', function () {
+
+        if (selectId === 'imgPerson' || selectId === 'imgSignature' || selectId === 'imgDigital') {
+            imageRepair(selectId, checkId);
+        }
 
         if (selectId === '') {
             alertMessage('Error de seleccion', 'Seleccione un campo a modificar')
