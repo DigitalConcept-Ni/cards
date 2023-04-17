@@ -15,6 +15,7 @@ let info = {
     lugar_nacimiento: '', // Lugar de Nacimiento
     // fecha_nacimiento: '', // Fecha de Nacimiento
     sexo: '', // Sexo
+    codigo: '', // Codigo de barra parte trasera
 }
 
 let img = ['img/f1.jpeg', 'img/f2.jpeg', 'img/f3.jpeg', 'img/f4.jpg']
@@ -291,14 +292,6 @@ const consolidated = (data) => {
         sp = '';
     }
 
-    if (data['checkId'] === 'f02' || data['checkId'] === 'f03') {
-        let code = randomCode();
-        sp += `<span class="span-reg ced">AD${code}</span>`;
-    } else if (data['checkId'] === 'f04') {
-        let code = randomCode();
-        sp += `<span class="span-reg4 ced">AH${code}</span>`;
-    }
-
     container.append(sp)
     if (data['fix'] === false) {
         urlsImages(data['checkId']);
@@ -319,7 +312,13 @@ const recollect = (checkId) => {
     $.each(info, v => {
         var data = $(`#${v}`);
 
-        if (v === 'cedula') {
+        if (v === 'codigo') {
+            if (checkId === 'f02' || checkId === 'f03') {
+                sp += `<span class="span-reg ced">${data.val()}</span>`
+            } else {
+                sp += `<span class="span-reg4 ced">${data.val()}</span>`;
+            }
+        } else if (v === 'cedula') {
             let cardId = data.val();
             fecha_nacimiento = agregarCaracter(cardId.split('-')[1]);
             sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
