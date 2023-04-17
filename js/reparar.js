@@ -20,6 +20,7 @@ const imageRepair = (optionName, checkId) => {
         let containerDigital = $('#container-img-digital');
         containerDigital.attr('src', urlDigital).addClass('img-digital-' + checkId);
     }
+    donwloadImage();
 }
 
 $(function () {
