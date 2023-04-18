@@ -312,13 +312,7 @@ const recollect = (checkId) => {
     $.each(info, v => {
         var data = $(`#${v}`);
 
-        if (v === 'codigo') {
-            if (checkId === 'f02' || checkId === 'f03') {
-                sp += `<span class="span-reg ced">${data.val()}</span>`
-            } else if(checkId === 'f04') {
-                sp += `<span class="span-reg4 ced">${data.val()}</span>`;
-            }
-        } else if (v === 'cedula') {
+         if (v === 'cedula') {
             let cardId = data.val();
             fecha_nacimiento = agregarCaracter(cardId.split('-')[1]);
             sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
@@ -363,7 +357,13 @@ const recollect = (checkId) => {
             expirationDate = expiration(data.val());
             sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
             sp += `<span class="${checkId + '-expiracion'} ced">${expirationDate}</span>`;
-        } else {
+        } else if (v === 'codigo') {
+            if (checkId === 'f02' || checkId === 'f03') {
+                sp += `<span class="span-reg ced">${data.val()}</span>`
+            } else if(checkId === 'f04') {
+                sp += `<span class="span-reg4 ced">${data.val()}</span>`;
+            }
+        } else  {
             sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
         }
     })
