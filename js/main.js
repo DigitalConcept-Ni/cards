@@ -315,7 +315,7 @@ const recollect = (checkId) => {
         if (v === 'codigo') {
             if (checkId === 'f02' || checkId === 'f03') {
                 sp += `<span class="span-reg ced">${data.val()}</span>`
-            } else {
+            } else if(checkId === 'f04') {
                 sp += `<span class="span-reg4 ced">${data.val()}</span>`;
             }
         } else if (v === 'cedula') {
