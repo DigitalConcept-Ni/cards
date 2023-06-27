@@ -398,7 +398,9 @@ const validateCheckbox = () => {
     let inputId = 'None';
 
     $.each(check, e => {
+        console.log(e)
         if ($(check[e]).is(':checked')) {
+            console.log(e)
             v += 1;
             inputId = $(check[e]).attr('id');
         }
