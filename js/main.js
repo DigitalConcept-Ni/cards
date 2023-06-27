@@ -79,7 +79,6 @@ const agregarCaracter = (cadena) => {
     let caracter = '-';
 
     let inputYear = $('#validateYear').is(':checked');
-    console.log(inputYear)
     const longitudCadena = cadena.length;
     for (let i = 0; i < longitudCadena; i += pasos) {
 
@@ -87,7 +86,6 @@ const agregarCaracter = (cadena) => {
             cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
         } else {
             let ultimosCaracteres = cadena.substring(i, longitudCadena);
-            console.log(ultimosCaracteres)
             if (parseInt(ultimosCaracteres) <= 08) {
                 if (inputYear === true) {
                     cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena)
