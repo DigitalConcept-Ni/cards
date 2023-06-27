@@ -3,7 +3,7 @@ let info = {
     n2: '', // Segundo Nombre
     a1: '', // Primer Apellido
     a2: '', // Segudno Apellido
-    direccion1: '', // Direccion primera parte
+    direccion1: '', // Direccion primera parte  
     direccion2: '', // Direccion segunda parte
     direccion3: '', // Direccion tercera parte
     cedula: '', // Cedula
@@ -76,7 +76,10 @@ const donwloadImage = () => {
 const agregarCaracter = (cadena) => {
     let cadenaConCaracteres = '';
     let pasos = 2;
-    let caracter = '-'
+    let caracter = '-';
+
+    let inputYear = $('#validateYear').is(':checked');
+    console.log(inputYear)
     const longitudCadena = cadena.length;
     for (let i = 0; i < longitudCadena; i += pasos) {
 
@@ -84,8 +87,13 @@ const agregarCaracter = (cadena) => {
             cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
         } else {
             let ultimosCaracteres = cadena.substring(i, longitudCadena);
+            console.log(ultimosCaracteres)
             if (parseInt(ultimosCaracteres) <= 08) {
-                cadenaConCaracteres += '20' + cadena.substring(i, longitudCadena)
+                if (inputYear === true) {
+                    cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena)
+                } else {
+                    cadenaConCaracteres += '20' + cadena.substring(i, longitudCadena)
+                }
             } else if (parseInt(ultimosCaracteres) >= 09) {
                 cadenaConCaracteres += '19' + cadena.substring(i, longitudCadena)
             }
@@ -312,7 +320,7 @@ const recollect = (checkId) => {
     $.each(info, v => {
         var data = $(`#${v}`);
 
-         if (v === 'cedula') {
+        if (v === 'cedula') {
             let cardId = data.val();
             fecha_nacimiento = agregarCaracter(cardId.split('-')[1]);
             sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
@@ -360,10 +368,10 @@ const recollect = (checkId) => {
         } else if (v === 'codigo') {
             if (checkId === 'f02' || checkId === 'f03') {
                 sp += `<span class="span-reg ced">${data.val()}</span>`
-            } else if(checkId === 'f04') {
+            } else if (checkId === 'f04') {
                 sp += `<span class="span-reg4 ced">${data.val()}</span>`;
             }
-        } else  {
+        } else {
             sp += `<span class="${checkId + '-' + v} ced">${data.val()}</span>`;
         }
     })
