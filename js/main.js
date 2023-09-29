@@ -419,17 +419,77 @@ const validateCheckbox = () => {
 
 // Funcion para mostrar en el modal la vista previa del formato seleccionado o a hacer
 var idAnterior = '';
+
+// $('#format-select').on('change', function () {
+//     let _this = $(this);
+//     let id = _this.val()
+//     var position = parseInt(_this.find('option:selected').text()) - 1;
+//     let containerImg = $('#format');
+//     containerImg.css('backgroundImage', `url(${img[position]})`)
+//     containerImg.css('display', 'block')
+
+//     if (id !== '') {
+//         if (idAnterior !== id || idAnterior !== '') {
+//             // console.log('Deseleccionar' + idAnterior)
+//             $(`${'#'+idAnterior}`).prop('checked', false);
+//             containerImg.removeClass(`${idAnterior+'-width'}`);
+//             if (idAnterior === 'f04') {
+//                 let direccion = $('#direccion3-block')
+//                 direccion.toggle()
+//             } else if (idAnterior === 'f01') {
+//                 let d = $('#blockDigital');
+//                 let br = $('#block-reposicion')
+//                 br.toggle()
+//                 d.toggle()
+//             }
+//         }
+
+//         if (id === 'f01' || id === 'f02' || id === 'f03') {
+//             containerImg.addClass(`${id+'-width'}`)
+//             if (id === 'f01') {
+//                 let d = $('#blockDigital')
+//                 let br = $('#block-reposicion')
+//                 br.toggle()
+//                 d.toggle()
+//             }
+//         }
+//         if (id === 'f04') {
+//             containerImg.addClass(`${id+'-width'}`)
+//             let direccion = $('#direccion3-block')
+//             direccion.toggle()
+
+//         }
+//     } else {
+//         containerImg.css('display', 'none')
+//         containerImg.css('backgroundImage', '')
+
+//         // Hacer algo si el checkbox ha sido deseleccionado
+//         if (id === 'f01') {
+//             let d = $('#blockDigital');
+//             let br = $('#block-reposicion');
+//             br.toggle();
+//             d.toggle();
+
+//         } else if (id === 'f04') {
+//             let direccion = $('#direccion3-block')
+//             direccion.toggle()
+//         }
+//     }
+//     idAnterior = id
+// })
+
 $('input[type="checkbox"]').on('change', function (e) {
 
     let id = $(this).attr('id');
     let containerImg = $('#format');
+    containerImg.css('display', 'block')
     if ($(this).is(':checked')) {
         let position = $(this).attr('data-image');
         containerImg.css('backgroundImage', `url(${img[position]})`)
 
         // fragmento para deseleccionar el formato que no ocuparemos y dejar el que si
         if (idAnterior === id || idAnterior === '') {
-            // Si esta vacio o es igual al que el id indicado
+            // pass
         } else {
             // console.log('Deseleccionar' + idAnterior)
             $(`${'#'+idAnterior}`).prop('checked', false);
