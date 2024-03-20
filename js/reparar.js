@@ -38,16 +38,10 @@ $(function () {
 
     var selectId = '';
     var checkId = 'None';
-    // var checkId = 'f02';
+
     $('select[name="select-error"]').on('change', function (e) {
         selectId = $(this).val();
-        let check = $('input[type="checkbox"]');
-
-        $.each(check, e => {
-            if ($(check[e]).is(':checked')) {
-                checkId = $(check[e]).attr('id');
-            }
-        })
+        checkId = $('select[name="format-select"]').val();
     })
 
     $('#fix').on('click', function () {
