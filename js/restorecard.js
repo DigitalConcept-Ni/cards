@@ -10,12 +10,9 @@ $("#rest").on("click", function () {
                 info[`${k}`] = v
             })
             recollect(jSon['format'], 'restore');
-        }else{
-            alertMessage("Error de seleccion", "Favor de seleccionar el formato");
         }
     } else {
         alertMessage("Error de inserción", "Insertar el texto JSON");
-        
     }
 
 });

@@ -390,9 +390,8 @@ const consolidated = (data) => {
       var x = s[a].charAt(i);
 
       if (!number) {
-        sp += `<span class="${data["checkId"]}  ${
-          data["checkId"] + "-number"
-        }">${x}</span>`;
+        sp += `<span class="${data["checkId"]}  ${data["checkId"] + "-number"
+          }">${x}</span>`;
         continue;
       }
       sp += `<span class="${data["checkId"]}">${x}</span>`;
@@ -448,65 +447,65 @@ const recollect = (checkId, job) => {
     information = JSON.parse($('input[name="restore"]').val());
   }
 
-  $.each(information, (k, v)=> {
+  $.each(information, (k, v) => {
 
     if (k === 'cedula') {
-        let cardId = information['cedula'].split('-')[1];
-        fecha_nacimiento = agregarCaracter(cardId);
-        sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
-        sp += `<span class="${checkId + '-' + 'fecha_nacimiento'} ced">${fecha_nacimiento}</span>`;
+      let cardId = information['cedula'].split('-')[1];
+      fecha_nacimiento = agregarCaracter(cardId);
+      sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
+      sp += `<span class="${checkId + '-' + 'fecha_nacimiento'} ced">${fecha_nacimiento}</span>`;
 
     } else if (k === 'departamento') {
-        if (checkId === 'f01') {  
-            sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
-            sp += `<span class="${checkId + '-' + k+'2'} ced">${v}</span>`;
-        } else {
-            sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
-        }
-    } else if (k === 'n1') {
-        if (checkId === 'f04' || checkId === 'f03' || checkId === 'f02') {
-            nComplete += v;
-        } else {
-            sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
-        }
-    } else if (k === 'n2') {
-        if (checkId === 'f04' || checkId === 'f03' || checkId === 'f02') {
-            nComplete += ' ';
-            nComplete += v;
-            sp += `<span class="${checkId + '-n1'} ced">${nComplete}</span>`;
-
-        } else {
-            sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
-        }
-    } else if (k === 'a1' || k === 'a2') {
-        if (checkId === 'f04') {
-            aComplete += v;
-            aComplete += ' ';
-            if (k === 'a2') {
-                sp += `<span class="${checkId + '-a1'} ced">${aComplete}</span>`;
-            }
-        } else if (checkId === 'f02' || checkId === 'f03') {
-            sp += `<span class="${checkId + '-'+k} ced">${v}</span>`;
-        } else {
-            sp += `<span class="${checkId + '-'+k} ced">${v}</span>`;
-
-        }
-    } else if (k === 'emision') {
-        expirationDate = expiration();
+      if (checkId === 'f01') {
         sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
-        sp += `<span class="${checkId + '-expiracion'} ced">${expirationDate}</span>`;
+        sp += `<span class="${checkId + '-' + k + '2'} ced">${v}</span>`;
+      } else {
+        sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
+      }
+    } else if (k === 'n1') {
+      if (checkId === 'f04' || checkId === 'f03' || checkId === 'f02') {
+        nComplete += v;
+      } else {
+        sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
+      }
+    } else if (k === 'n2') {
+      if (checkId === 'f04' || checkId === 'f03' || checkId === 'f02') {
+        nComplete += ' ';
+        nComplete += v;
+        sp += `<span class="${checkId + '-n1'} ced">${nComplete}</span>`;
+
+      } else {
+        sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
+      }
+    } else if (k === 'a1' || k === 'a2') {
+      if (checkId === 'f04') {
+        aComplete += v;
+        aComplete += ' ';
+        if (k === 'a2') {
+          sp += `<span class="${checkId + '-a1'} ced">${aComplete}</span>`;
+        }
+      } else if (checkId === 'f02' || checkId === 'f03') {
+        sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
+      } else {
+        sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
+
+      }
+    } else if (k === 'emision') {
+      expirationDate = expiration();
+      sp += `<span class="${checkId + '-' + k} ced">${v}</span>`;
+      sp += `<span class="${checkId + '-expiracion'} ced">${expirationDate}</span>`;
     } else if (k === 'codigo') {
-        if (checkId === 'f02' || checkId === 'f03') {
-            sp += `<span class="span-reg ced">${v}</span>`
-        } else if (checkId === 'f04') {
-            sp += `<span class="span-reg4 ced">${v}</span>`;
-        }
+      if (checkId === 'f02' || checkId === 'f03') {
+        sp += `<span class="span-reg ced">${v}</span>`
+      } else if (checkId === 'f04') {
+        sp += `<span class="span-reg4 ced">${v}</span>`;
+      }
     } else {
-      if (k !== 'format' && k !== 'date'){
+      if (k !== 'format' && k !== 'date') {
         sp += `<span class="${checkId + "-" + k} ced">${v}</span>`;
-        }
+      }
     }
-})
+  })
 
   container.append(sp);
   if (checkId === "f01") {
@@ -565,10 +564,12 @@ var idAnterior = "";
 
 // ACTUALIZACION: SE AGREGARA LA MANERA DE QUE TRABAJE CON EL SELECT Y NO CON LOS INPUTS
 
-$("#format-select").on("change", function () {
-  let _this = $(this);
-  let id = _this.val();
-  var position = parseInt(_this.find("option:selected").text()) - 1;
+const showFormatBackground = (val) => {
+  // let _this = $(this);
+  // let id = $(this).val();
+  let id = val;
+  // var position = pos
+  var position = parseInt($("#format-select").find("option:selected").text()) - 1;
   let containerImg = $("#format");
   containerImg.css("backgroundImage", `url(${img[position]})`);
   containerImg.css("display", "block");
@@ -620,6 +621,13 @@ $("#format-select").on("change", function () {
   idAnterior = id;
 
   checkId = id;
+}
+
+$("#format-select").on("change", function () {
+  let id = $(this).val();
+
+  showFormatBackground(id)
+
 });
 
 // $('input[type="checkbox"]').on('change', function (e) {
@@ -695,6 +703,10 @@ $("#visualize").on("click", function () {
     alertMessage("Error de seleccion", "Por favor, selecciona un formato");
   }
 });
+
+// Show image
+
+
 
 // $('#cli').on('click', function () {
 //     let person = $('#imgPerson')[0].files;

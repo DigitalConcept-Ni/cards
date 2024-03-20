@@ -45,7 +45,7 @@
         <div class="card bg-navy">
 
             <div class="card-header">
-                <h3 class="card-title">Informacion de la cedula</h3>
+                <h3 class="card-title">Información de la cédula</h3>
             </div>
 
             <div class="card-body">
@@ -269,10 +269,14 @@
             <div class="card-footer">
 
                 <div class="row">
-                    <div class="col-4">
-                        <input placeholder="Insertar json" autocomplete="off" class="form-control" type="" name="restore" id="restore">
+                    <label for="">Restauración de formato: </label>
+                    <div class="input-group mb-3 mt-3">
+                            <input placeholder="Insertar json" autocomplete="off" class="form-control" type="" name="restore" id="restore">
+                            <a class="btn btn-danger input-group-append" id="rest">Restaurar</a>
                     </div>
                 </div>
+
+                <hr>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -281,8 +285,7 @@
                             <a id="download" class="btn btn-warning">Generar</a>
                             <a class="btn btn-primary" id="refresh">Limpiar</a>
                             <a class="btn btn-secondary" id="fix">Reparar</a>
-                            <a class="btn btn-warning" id="rest">Restaurar</a>
-                            <a class="btn btn-dark" id="data">Data</a>
+                            <a class="btn btn-dark mt-2" id="data">Data</a>
                         </div>
                     </div>
 
